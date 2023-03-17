@@ -1,38 +1,305 @@
+button {
+  cursor: pointer;
+}
+
 .App {
+  cursor: default;
+}
+
+li {
+  list-style: none;
+}
+
+header {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  background-color: #000;
+  z-index: 8888;
+}
+header nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+header nav button {
+  background-color: rgba(0, 0, 0, 0);
+  color: #fff;
+  border: none;
+}
+
+main .home {
+  margin: 100px 5%;
+}
+main .home .topMenus {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 94px;
+}
+main .home .topMenus .menu {
+  width: 200px;
+  height: 200px;
+  border: solid 3px black;
+  border-radius: 12px;
+  background-color: #fff;
+}
+main .home .topMenus .menu .menuName {
   text-align: center;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+main .home .topMenus .menu .menuInfos .info {
+  margin: 0 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+main .home .siteStats {
+  width: 800px;
+  height: 350px;
+  margin: 40px auto;
+  border: solid 3px black;
+  border-radius: 12px;
+  text-align: center;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+main .home .siteStats .statsInfos {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+main .home .siteStats .statsInfos .info {
+  width: 200px;
+  height: 200px;
+}
+main .home .siteStats .statsInfos .info .stats {
+  width: 200px;
+  height: 150px;
+}
+main .upload {
+  width: 800px;
+  border: solid black 3px;
+  margin: 100px auto;
+  text-align: center;
+}
+main .movieManage .searchFilter {
+  width: 800px;
+  border: solid black 3px;
+  margin: 0 auto;
+  margin-top: 100px;
+  text-align: center;
+}
+main .movieManage .movies {
+  text-align: center;
+  margin-top: 50px;
+  height: 500px;
+  color: #000;
+  border: solid black 3px;
+}
+main .inputs {
+  width: 800px;
+  text-align: center;
+  position: relative;
+}
+main .inputs .inputName {
+  position: absolute;
+  left: 40px;
+}
+main .inputs .inputBox {
+  margin: 30px 0;
+  width: 275px;
+  margin-left: 296px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+main .inputs .inputBox input {
+  width: 206px;
+  height: 22px;
+  padding: 0;
+  border: solid 1px black;
+  text-align: center;
+}
+main .inputs .inputBox select {
+  width: 208px;
+  height: 24px;
+  padding: 0;
+  border: solid 1px black;
+  text-align: center;
+}
+main .inputs .inputBox textarea {
+  width: 206px;
+  height: 70px;
+  padding: 0;
+  border: solid 1px black;
+}
+main .inputs .inputBox .dateInput {
+  display: flex;
+  flex-direction: row;
+  width: 300px;
+}
+main .inputs .inputBox .dateInput span {
+  margin: 0 10px;
+}
+main .inputs .inputBox .dateInput input {
+  width: 120px;
+}
+main .inputs .inputBox .addBtns {
+  transform: translateX(208px);
+  position: absolute;
+  background-color: #fff;
+  height: 24px;
+  border: solid 1px black;
+}
+main .inputs .addedDatas {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  transform: translate(-10px, 14px);
+  width: 800px;
+}
+main .inputs .addedDatas .addedDataBox {
+  background-color: #fff;
+  color: #000;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  width: 120px;
+  height: 19px;
+  border: 1px solid black;
+  margin: 5px;
+}
+main .inputs .addedDatas .addedDataBox .addedData {
+  color: #000;
+  font-size: small;
+  width: 100px;
+  transform: translateX(10px);
+}
+main .inputs .addedDatas .addedDataBox .delBtn {
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+}
+main .listBox {
+  width: 800px;
+  border: solid black 3px;
+  margin: 50px auto;
+  text-align: center;
+}
+main .listBox .modalOut {
+  position: fixed;
+  z-index: 8888;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+}
+main .listBox .listTitle {
+  height: 40px;
+  font-size: large;
+  font-weight: 800;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+main .listBox .listMenu {
+  height: 40px;
+  border-top: solid 2px black;
+}
+main .listBox .listMenu .addShowElBtn {
+  transform: translate(280px, 8px);
+  background-color: rgba(0, 0, 0, 0);
+  border: solid 1px black;
+  border-radius: 8px;
+}
+main .listBox .listMenu .addShowElModal {
+  position: absolute;
+  transform: translate(580px, 10px);
+  border: solid black 1px;
+  border-radius: 12px;
   display: flex;
   flex-direction: column;
+  gap: 5px;
+  width: 90px;
+  background-color: #fff;
+  z-index: 9999;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+main .listBox .listMenu .addShowElModal input {
+  float: left;
+  margin-left: 8px;
+  cursor: pointer;
+}
+main .listBox .listMenu .addShowElModal button {
+  float: left;
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
+  font-size: small;
+}
+main .listBox .listMenu select {
+  transform: translate(300px, 6px);
+  background-color: rgba(0, 0, 0, 0);
+  border: solid 1px black;
+}
+main .listBox table {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0;
+  margin: 0;
+  border-bottom: solid 1px black;
+}
+main .listBox table .grabbing {
+  background-color: rgba(0, 0, 0, 0);
+}
+main .listBox table thead {
+  border: solid 1px black;
+  margin: auto -1px;
+}
+main .listBox table thead .el {
+  cursor: pointer;
+}
+main .listBox table tr {
+  display: flex;
+  flex-direction: row;
+  border-top: solid 1px black;
+  height: 49px;
+}
+main .listBox table tr:hover {
+  height: auto;
+  min-height: 49px;
+}
+main .listBox table tr .el {
+  width: 130px;
+  border: solid 1px black;
+  margin: -1px 0 -1px -1px;
+  display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: 5px;
+  flex-wrap: wrap;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
-
-.App-link {
-  color: #61dafb;
+main .listBox table .moreLi {
+  height: auto;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+main .listBox .pages {
+  border-top: solid 1px black;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+main .listBox .pages .currPageBtn {
+  background-color: #000;
+  color: #fff;
+  border-radius: 30%;
+}
+main .listBox .pages button {
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  color: #000;
+}/*# sourceMappingURL=App.css.map */

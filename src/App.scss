@@ -1,0 +1,447 @@
+button {
+  cursor: pointer;
+}
+.App {
+  cursor: default;
+}
+
+li {
+  list-style: none;
+}
+
+header {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  background-color: #000;
+  z-index: 8888;
+  
+  nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    
+    button {
+      background-color: rgba(0, 0, 0, 0);
+      color: #fff;
+      border: none;
+    }
+  }
+}
+main {
+  .home {
+    margin: 100px 5%;
+    .topMenus {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      gap: 94px;
+
+      .menu {
+        width: 200px;
+        height: 200px;
+        border: solid 3px black;
+        border-radius: 12px;
+        background-color: #fff;
+        
+        .menuName {
+          text-align: center;
+        }
+        
+        .menuInfos {
+          .info {
+            margin: 0 5px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+          }
+        }
+      }
+    }
+    .siteStats {
+      width: 800px;
+      height: 350px;
+      margin: 40px auto;
+      border: solid 3px black;
+      border-radius: 12px;
+      text-align: center;
+      
+      .statsInfos {
+        margin-top: 40px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+
+        .info {
+          width: 200px;
+          height: 200px;
+          .stats {
+            width: 200px;
+            height: 150px;
+          }
+        }
+      }
+    }
+  }
+
+  .upload{
+    width: 800px;
+    border: solid black 3px;
+    border-radius: 16px;
+    margin: 100px auto;
+    text-align: center;
+
+    .uploadBtn {
+      background-color: #fff;
+      border: solid 1px black;
+      border-radius: 8px;
+      width: 50px;
+      height: 30px;
+      margin-bottom: 20px;
+      font-weight: 600; 
+    }
+  }
+
+  .manage {
+    h2 {
+      text-align: center;
+      transform: translateY(50px);
+    }
+    
+    .searchFilter{
+      width: 800px;
+      border: solid black 3px;
+      border-radius: 16px;
+      margin: 0 auto;
+      margin-top: 100px;
+      text-align: center;
+      .searchBtn {
+        background-color: #fff;
+        border: solid 1px black;
+        border-radius: 8px;
+        width: 50px;
+        height: 30px;
+        margin-bottom: 20px;
+        font-weight: 600;
+      }
+    }
+
+    .manageModal {
+      width: 500px;
+      height: 700px;
+      border: solid 1px black;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #fff;
+      z-index: 9999;
+
+      button {
+        position: absolute;
+        top: 2px;
+        right: 2px;
+        border: none;
+        background-color: rgba(0, 0, 0, 0);
+      }
+    }
+
+    .manageModalOut {
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      position: fixed;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 8888;
+    }
+  }
+    
+  .inputs {
+    width: 800px; 
+    text-align: center;
+    position: relative;
+
+    
+    .inputName {
+      position: absolute;
+      left: 40px;
+    }
+    
+    .inputBox {
+      margin: 30px 0;
+      width: 275px;
+      margin-left: 296px;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      
+      
+      input {
+        width: 206px;
+        height: 22px;
+        padding: 0;
+        border: solid 1px black;
+        text-align: center;
+      }
+      
+      select {
+        width: 208px;
+        height: 24px;
+        padding: 0;
+        border: solid 1px black;
+        text-align: center;
+      }
+      
+      textarea {
+        width: 206px;
+        height: 70px;
+        padding: 0;
+        border: solid 1px black;
+      }
+      
+      .checkbox {
+        
+        margin-right: 15px;
+        input {
+          height: auto;
+          width: auto;
+          margin: 0;
+          margin-right: 4px;
+          cursor: pointer;
+        }
+        span {
+          font-size: 15px;
+          cursor: pointer;
+        }
+      }
+
+      .dateInput {
+        display: flex;
+        flex-direction: row;
+        width: 300px;
+
+        span{
+          margin: 0 10px;
+        }
+
+        input {
+          width: 120px;
+        }
+      }
+      
+      .addBtns {
+        transform: translateX(208px);
+        position: absolute;
+        background-color: #fff;
+        height: 24px;
+        border: solid 1px black;
+      }
+    }
+    .addedDatas {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      transform: translate(-10px, 14px);
+      width: 800px;
+
+      .addedDataBox {
+        background-color: #fff;
+        color: #000;
+        display: flex;
+        flex-direction: row;
+        text-align: center;
+        width: 120px;
+        height: 19px;
+        border: 1px solid black;
+        margin: 5px;
+        
+        .addedData {
+          color: #000;
+          font-size: small;
+          width: 100px;
+          transform: translateX(10px);
+        }
+        
+        .delBtn {
+          background-color: rgba(0, 0, 0, 0);
+          border: none;
+        }
+        
+      }
+    }  
+
+  }
+
+  .listBox {
+    width: 800px;
+    border: solid black 3px;
+    border-radius: 16px;
+    margin: 50px auto;
+    text-align: center;
+
+    
+    .modalOut {
+      position: fixed;
+      z-index: 8888;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+    }
+    
+    
+    .listTitle {
+      height: 40px;
+      font-size: large;
+      font-weight: 800;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .listMenu {
+      height: 40px;
+      border-top: solid 2px black;
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: end;
+      gap: 10px;
+      
+      .addShowElBtn {   
+        // transform: translate(230px, 8px);
+        background-color: rgba(0, 0, 0, 0);
+        border: solid 1px black;
+        border-radius: 8px;
+      }
+
+      .addShowElModal {
+        position: absolute;
+        top: 35px;
+        right: 175px;
+        border: solid black 1px;
+        border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        width: 120px;
+        background-color: #fff;
+        z-index: 9999;
+        -webkit-user-select:none;
+        -moz-user-select:none;
+        -ms-user-select:none;
+        user-select:none;
+
+        input {
+          float: left;
+          margin-left: 8px;
+          cursor: pointer;
+        }
+        button {
+          float: left;
+          border: none;
+          background-color: rgba(0, 0, 0, 0);
+          font-size: small;
+        }
+      }
+      
+      select {
+        // transform: translate(250px, 6px);
+        background-color: rgba(0, 0, 0, 0);
+        border: solid 1px black;
+      }
+    }
+    
+    table {
+      display: flex;
+      flex-direction: column;
+      padding-left: 0;
+      margin: 0;
+      // border-top: solid 1px black;
+      border-bottom: solid 1px black;
+
+      .grabbing {
+        background-color: rgba(0, 0, 0, 0);
+      }
+
+      .noData {
+        height: 300px;
+        border-top: solid 1px black;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        font-weight: 700;
+      }
+      
+      thead {
+        border: solid 1px black;
+        // border-collapse: collapse;
+        margin: auto -1px;
+
+        .el {
+          cursor: pointer;
+        }
+      }
+      
+      tr {
+        display: flex;
+        flex-direction: row;
+        border-top: solid 1px black;
+        &:hover {
+        height: auto;
+        min-height: 49px;
+          // position: relative;
+          // width: 400px;
+          // height: 300px;
+          // background-color: #000;
+        }
+        height: 49px;
+        
+        
+        .el {
+          width: 130px;
+          // border-right: solid 1px black;
+          border: solid 1px black;
+          // border-collapse: collapse;
+          margin: -1px 0 -1px -1px;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
+          gap: 5px;
+          flex-wrap: wrap; 
+          overflow-x: hidden;
+          overflow-y: hidden;
+        }
+      }
+      .moreLi {
+        height: auto;
+      }
+    }
+
+    .pages{
+      border-top: solid 1px black;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .currPageBtn {
+        background-color: #000;
+        color: #fff;
+        border-radius: 30%;
+      }
+
+      button {
+        background-color: rgba(0, 0, 0, 0);
+        border: none;
+        color: #000;
+      }
+    }
+  }
+}
