@@ -9,7 +9,7 @@ function List(props) {
   const totalPage = Math.ceil(props.dataLength/listNum);
   const listNumOptions = [5, 10, 25, 50, 100];
   const [currPage, setCurrPage] = useState(1);
-  const [addShowElModal, setAddShowElModal] = useState(false);
+  const [setShowElModal, setSetShowElModal] = useState(false);
   const pages = [];
   const [listData, setListData] = useState([]);
 
@@ -80,10 +80,10 @@ function List(props) {
     <div className="listBox">
     <div className="listTitle">{props.listName} 목록</div>
     <div className="listMenu">
-      <button className="addShowElBtn" onClick={() => {setAddShowElModal(true)}}>구성 설정</button>
+      <button className="setShowElBtn" onClick={() => {setSetShowElModal(true)}}>구성 설정</button>
       {
-        addShowElModal ?
-        <AddShowElModal elements={props.elements} showEl={showEl} setShowEl={setShowEl} setAddShowElModal={setAddShowElModal}/> :
+        setShowElModal ?
+        <SetShowElModal elements={props.elements} showEl={showEl} setShowEl={setShowEl} setSetShowElModal={setSetShowElModal}/> :
         null
       }
       <select value={listNum} onChange={(e) => {listNumChange(e.target.value)}} >
@@ -120,7 +120,7 @@ function List(props) {
   )
 }
 
-function AddShowElModal(props) {
+function SetShowElModal(props) {
   
   const checkRef = useRef();
   const change = (e, elKeyName) => {
@@ -132,8 +132,8 @@ function AddShowElModal(props) {
 
   return(
     <> 
-    <div className="modalOut" onClick={() => {props.setAddShowElModal(false)}} />
-    <div className="addShowElModal">
+    <div className="modalOut" onClick={() => {props.setSetShowElModal(false)}} />
+    <div className="setShowElModal">
       {
         Object.keys(props.elements).map((elKeyName) => {
           return(
