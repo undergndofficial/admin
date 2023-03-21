@@ -17,9 +17,28 @@ function App() {
 
   const [tag, setTag] = useState({tagName:''});
   const [notice, setNotice] = useState({noticeName:'', noticeContent:''});
+  const [manager, setManager] = useState({id:'', name:'', phoneNumber:'', password:''});
+
+  const [loginInfo, setLoginInfo] = useState({id:'', password:''});
 
   const upload = () => {
     axios.post('/api/notice/upload', notice, {"Content-Type": 'application/json'})
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((error) => {console.log(error)})
+  }
+
+  const signup = () => {
+    axios.post('/api/manager/signup', manager, {"Content-Type": 'application/json'})
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((error) => {console.log(error)})
+  }
+  
+  const login = () => {
+    axios.post('/api/manager/login', loginInfo, {"Content-Type": 'application/json'})
     .then((res) => {
       console.log(res);
     })
@@ -46,6 +65,14 @@ function App() {
       {/* <input value={notice.noticeName} onChange={(e) => {setNotice({...notice, noticeName: e.target.value})}}/>
       <textarea value={notice.noticeContent} onChange={(e) => {setNotice({...notice, noticeContent: e.target.value})}} />
       <button onClick={upload}>등록</button> */}
+      {/* <input value={manager.id} onChange={(e) => {setManager({...manager, id: e.target.value})}}/>
+      <input value={manager.name} onChange={(e) => {setManager({...manager, name: e.target.value})}}/>
+      <input value={manager.phoneNumber} onChange={(e) => {setManager({...manager, phoneNumber: e.target.value})}}/>
+      <input value={manager.password} onChange={(e) => {setManager({...manager, password: e.target.value})}}/>
+      <button onClick={signup}>등록</button> */}
+      <input value={loginInfo.id} onChange={(e) => {setLoginInfo({...loginInfo, id: e.target.value})}}/>
+      <input type={"password"} value={loginInfo.password} onChange={(e) => {setLoginInfo({...loginInfo, password: e.target.value})}}/>
+      <button onClick={login}>로그인</button>
     </div>
   );
 }
