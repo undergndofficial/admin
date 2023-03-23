@@ -8,13 +8,13 @@ function Signup() {
     id: {name: '아이디', isPlural: false, isInput: true, type: 'default', addDataName: 'id', inputValue: ''},
     name: {name: '이름', isPlural: false, isInput: true, type: 'default', addDataName: 'name', inputValue: ''},
     pheNumber: {name: '전화번호', isPlural: false, isInput: true, type: 'default', addDataName: 'phoneNumber', inputValue: ''},
-    password: {name: '비밀번호', isPlural: false, isInput: true, type: 'default', addDataName: 'password', inputValue: ''}
+    password: {name: '비밀번호', isPlural: false, isInput: true, type: 'password', addDataName: 'password', inputValue: ''}
   })
 
   const [signupInfo, setSignupInfo] = useState({id:'', name:'', phoneNumber:'', password:''});
 
   const signup = () => {
-    axios.post('/api/manager/signup', signupInfo, {"Content-Type": 'application/json'})
+    axios.post('/api/admin/signup', signupInfo, {"Content-Type": 'application/json'})
     .then((res) => {
       console.log(res);
     })

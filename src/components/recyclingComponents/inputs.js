@@ -32,7 +32,7 @@ function Inputs(props) {
             <div className="inputBox">
               <span className="inputName">{props.inputs[keyName].name}</span>
               {
-                props.inputs[keyName].type === 'default'
+                props.inputs[keyName].type === 'default' || props.inputs[keyName].type === 'password'
                 ?
                 <input type={props.inputs[keyName].type} value={props.inputs[keyName].inputValue} onChange={(e) => {inputChange(e, keyName)}} onKeyUp={(e) => {enterKey(e, props.inputs[keyName].addDataName, props.inputs[keyName].inputValue, keyName)}} />
                 :

@@ -1,12 +1,17 @@
 import axios from "axios";
 import { useState } from "react";
+import Inputs from "../../components/recyclingComponents/inputs";
 
 function UploadTag() {
 
-  const [tag, setTag] = useState({tagName:''});
+  const [input, setInput] = useState({
+    tagName: {name: '태그 이름', isPlural: false, isInput: true, type: 'default', addDataName: 'tagName', inputValue: ''},
+  });
+
+  const [tagInfo, setTagInfo] = useState({tagName:''});
 
   const upload = () => {
-    axios.post('/api/tag/upload', tag, {"Content-Type": 'application/json'})
+    axios.post('/api/tag/upload', tagInfo, {"Content-Type": 'application/json'})
     .then((res) => {
       console.log(res);
     })
@@ -14,9 +19,9 @@ function UploadTag() {
   }
 
   return(
-    <div className="uploadTag">
-      <input value={tag.tagName} onChange={(e) => {setTag({...tag, tagName: e.target.value})}}/>
-      <button onClick={upload}>등록</button>
+    <div className="upload">
+      <Inputs inputs={input} setInputs={setInput} addedDatas={tagInfo} setAddedDatas={setTagInfo} />
+      <button className="uploadBtn" onClick={upload}>등록</button>
     </div>
   )
 }
