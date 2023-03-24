@@ -78,7 +78,7 @@ function Main(){
           {
             statsInfos.map((statsInfo) => {
               return(
-                <div className="info">
+                <div key={statsInfo._id} className="info">
                     <h3>{statsInfo.id}</h3>
                     <div className="stats">
                       <Stats statsData={statsInfo}/> 
@@ -113,7 +113,7 @@ function Stats(props){
         yFormat="d"
         axisTop={null}
         axisRight={null}
-        axisBottom={true}
+        axisBottom={props.statsData}
         axisLeft={null}
         pointSize={5}
         pointBorderWidth={2}

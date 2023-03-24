@@ -97,7 +97,7 @@ function List(props) {
       <thead>
       
       <tr>
-        {showEl.map((elKeyName, index) => {return(<th draggable className="el" onDragStart={(e) => {onDragStart(e, index)}} onDragEnter={() => {onDragEnter(index)}} onDragEnd={(e) => {onDragEnd(e)}} >{Array.isArray(props.elements[elKeyName]) ? props.elements[elKeyName][0]: props.elements[elKeyName]}</th>)})}
+        {showEl.map((elKeyName, index) => {return(<th key={elKeyName} draggable className="el" onDragStart={(e) => {onDragStart(e, index)}} onDragEnter={() => {onDragEnter(index)}} onDragEnd={(e) => {onDragEnd(e)}} >{Array.isArray(props.elements[elKeyName]) ? props.elements[elKeyName][0]: props.elements[elKeyName]}</th>)})}
       </tr>
       </thead>
       <Page showEl={showEl} listData={listData} elements={props.elements} setManageModal={props.setManageModal} />
@@ -109,7 +109,7 @@ function List(props) {
         {
           pages.map((page) => {
             return(
-              <button className={page === currPage ? "currPageBtn" : "pageBtn"} onClick={() => {setCurrPage(page)}}>{page}</button>
+              <button key={page} className={page === currPage ? "currPageBtn" : "pageBtn"} onClick={() => {setCurrPage(page)}}>{page}</button>
             )
           })
         }
@@ -137,7 +137,7 @@ function SetShowElModal(props) {
       {
         Object.keys(props.elements).map((elKeyName) => {
           return(
-            <div>
+            <div key={elKeyName}>
               <input type={"checkbox"} id={'checkBox'+elKeyName} defaultChecked={props.showEl.includes(elKeyName)} onChange={(e) => {change(e, elKeyName)}}/>
               <button onClick={() => {document.getElementById('checkBox'+elKeyName).click()}}>{Array.isArray(props.elements[elKeyName]) ? props.elements[elKeyName][0]: props.elements[elKeyName]}</button>
             </div>
@@ -157,7 +157,7 @@ function Page(props) {
         props.listData[0] ?
         props.listData.map((data) => {
           return(
-            <ListElement data={data} showEl={props.showEl} elements={props.elements} setManageModal={props.setManageModal} />
+            <ListElement key={data._id} data={data} showEl={props.showEl} elements={props.elements} setManageModal={props.setManageModal} />
           )
         })
         :
@@ -173,23 +173,22 @@ function ListElement(props) {
       {
         props.showEl.map((elKeyName) => {
         return(
-          <td className="el" >
+          <td key={elKeyName} className="el" >
             {
               Array.isArray(props.elements[elKeyName])
                 ?
-                //console.log(elKeyName)
-                props.data[elKeyName].map((dataEl) => {
+                props.data[elKeyName].map((dataEl, idx) => {
                   return(
-                    <div>
+                    <div key={idx}>
                       {dataEl[props.elements[elKeyName][1]]}
                     </div>
                   )
                 })
                 :
                 Array.isArray(props.data[elKeyName])?
-                props.data[elKeyName].map((dataEl) => {
+                props.data[elKeyName].map((dataEl, idx) => {
                   return (
-                    <div>
+                    <div key={idx}>
                       {dataEl}
                     </div>
                   )

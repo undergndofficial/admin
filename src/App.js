@@ -28,7 +28,10 @@ function App() {
   //   })
   //   console.log(cookie[0].x_auth);
   // }
-  const [cookies, setCookies, removeCookies] = useCookies(['x_auth']);
+  const [, , removeCookies] = useCookies(['x_auth']);
+
+  const cookies = new Cookies();
+  var token = cookies.get('x_auth') 
 
   const logOut = () => {
     removeCookies('x_auth');
@@ -52,21 +55,21 @@ function App() {
   const [adminInfo, setAdminInfo] = useState({});
 
   useEffect(() => {
-    axios.post('/api/admin/auth', {token: cookies.x_auth}, {"Content-Type": 'application/json'})
+    axios.post('/api/admin/auth', {token: token}, {"Content-Type": 'application/json'})
     .then((res) => {
       setIsAuth(res.data.isAuth);
+      setAdminInfo(res.data.admin);
       setIsDone(true);
     })
     .catch((error) =>
       console.log(error)
     )
-  }, [])
+  }, [isDone])
 
   return (
     isDone ?
     <div className="App">
-      <Header adminInfo={adminInfo} logOut={logOut}/>
-      {/* <button onClick={() => {console.log(isAuth)}}>ddd</button> */}
+      <Header isAuth={isAuth} logOut={logOut}/>
       <main>
         <Routes>
           <Route path='/' element={<PrivateRoute isAuth={isAuth} Component={<Main />} />} />
@@ -77,7 +80,7 @@ function App() {
           <Route path='/reportManage' element={<PrivateRoute isAuth={isAuth} Component={<ReportManage />} />} />
           <Route path='/userManage' element={<PrivateRoute isAuth={isAuth} Component={<UserManage />} />} />
           <Route path='/inquiryManage' element={<PrivateRoute isAuth={isAuth} Component={<InquiryManage />} />} />
-          <Route path='/login' element={<Login setAdminInfo={setAdminInfo} />} />
+          <Route path='/login' element={<Login setIsDone={setIsDone}/>} />
           <Route path='/signup' element={<Signup />} />
           <Route path='uploadNotice' element={<PrivateRoute isAuth={isAuth} Component={<UploadNotice />} />} />
           <Route path='/uploadTag' element={<PrivateRoute isAuth={isAuth} Component={<UploadTag />} />} />

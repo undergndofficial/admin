@@ -29,7 +29,7 @@ function Inputs(props) {
       {
         Object.keys(props.inputs).map((keyName) => {
           return(
-            <div className="inputBox">
+            <div key={keyName} className="inputBox">
               <span className="inputName">{props.inputs[keyName].name}</span>
               {
                 props.inputs[keyName].type === 'default' || props.inputs[keyName].type === 'password'
@@ -71,7 +71,7 @@ function Inputs(props) {
                 ?
                 props.inputs[keyName].checkList.map((checkbox, idx) => {
                   return(
-                    <div className="checkbox">
+                    <div key={idx} className="checkbox">
                       <input id={"checkbox"+keyName+idx} type={"checkbox"} value={checkbox} checked={checkbox === props.inputs[keyName].inputValue} onClick={(e) => {
                         var value = e.target.checked? e.target.value: '' ; 
                         props.setInputs({...props.inputs, [keyName]:{...props.inputs[keyName], inputValue: value}}); 
@@ -111,9 +111,9 @@ function Inputs(props) {
                 <div className="addedDatas">
                 {
                   props.addedDatas[props.inputs[keyName].addDataName][0] ?
-                  props.addedDatas[props.inputs[keyName].addDataName].map((addedData) => {
+                  props.addedDatas[props.inputs[keyName].addDataName].map((addedData,idx) => {
                     return (
-                      <span className="addedDataBox">
+                      <span key={idx} className="addedDataBox">
                         <span className="addedData">{addedData}</span>
                         <button className="delBtn" onClick={() => {props.setAddedDatas({...props.addedDatas, [props.inputs[keyName].addDataName]:props.addedDatas[props.inputs[keyName].addDataName].filter((del) => del !== addedData)})}}>x</button>
                       </span>
