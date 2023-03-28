@@ -22,13 +22,15 @@ function TagManage () {
     endDate: ''
   })
 
+  const [searchOption, setSearchOption] = useState('and');
+
   const [tagMangeModal, setTagManageModal] = useState(0)
 
   return (
     <div className="manage">
       <h2>태그 관리 페이지</h2>
-      <SearchFilter inputs={searchInputs} setInputs={setSearchInputs} addedDatas={addedSearchDatas} setAddedDatas={setAddedSearchDatas} queryData={queryData} setQueryData={setQueryData} setDataLength={setDataLength} getLengthApi={'tag/getLength'} />
-      <List dataLength={dataLength} queryData={queryData} elements={elements} defaultShow={['tagName', 'movies', 'date']} listName='태그' getListApi={'tag/getTagList'} setManageModal={setTagManageModal} />
+      <SearchFilter inputs={searchInputs} setInputs={setSearchInputs} addedDatas={addedSearchDatas} setAddedDatas={setAddedSearchDatas} queryData={queryData} setQueryData={setQueryData} searchOption={searchOption} setSearchOption={setSearchOption} setDataLength={setDataLength} getLengthApi={'tag/getLength'} />
+      <List dataLength={dataLength} queryData={queryData} searchOption={searchOption} elements={elements} defaultShow={['tagName', 'movies', 'date']} listName='태그' getListApi={'tag/getTagList'} setManageModal={setTagManageModal} />
       {tagMangeModal ? <TagManageModal id={tagMangeModal} setTagManageModal={setTagManageModal} /> : null}
     </div>
   )

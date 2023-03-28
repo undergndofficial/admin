@@ -22,11 +22,13 @@ function NoticeManage() {
     endDate: ''
   })
 
+  const [searchOption, setSearchOption] = useState('and');
+
   return(
     <div className="manage">
       <h2>공지 관리 페이지</h2>
-      <SearchFilter inputs={searchInputs} setInputs={setSearchInputs} addedDatas={addedSearchDatas} setAddedDatas={setAddedSearchDatas} queryData={queryData} setQueryData={setQueryData} setDataLength={setDataLength} getLengthApi={'notice/getLength'} />
-      <List dataLength={dataLength} queryData={queryData} elements={elements} defaultShow={['noticeName', 'noticeContent', 'date']} listName='공지' getListApi={'notice/getNoticeList'} />
+      <SearchFilter inputs={searchInputs} setInputs={setSearchInputs} addedDatas={addedSearchDatas} setAddedDatas={setAddedSearchDatas} queryData={queryData} setQueryData={setQueryData} searchOption={searchOption} setSearchOption={setSearchOption} setDataLength={setDataLength} getLengthApi={'notice/getLength'} />
+      <List dataLength={dataLength} queryData={queryData} searchOption={searchOption} elements={elements} defaultShow={['noticeName', 'noticeContent', 'date']} listName='공지' getListApi={'notice/getNoticeList'} />
     </div>
   )
 }

@@ -13,6 +13,8 @@ function List(props) {
   const pages = [];
   const [listData, setListData] = useState([]);
 
+  const [checkedData, setCheckedData] = useState([]);
+
   const [sortOption, setSortOption] = useState('최신순');
   const sortOptions = ['최신순', '오래된순', '이름순'];
 
@@ -58,19 +60,24 @@ function List(props) {
     setCurrPage(1);
     setListNum(num);
   } 
-  
-  // const aa = () => {
-  //   history.pushState('/page/2');
-  // }
+
+  const changeCheckbox = (e) => {
+    if (e.target.checked) {
+      let listIds = [];
+      listData.map((data) => {listIds.push(data._id)});
+      setCheckedData(listIds);
+    }
+    else setCheckedData([]);
+  }
 
   useEffect(() => {
     console.log(props.queryData);
-    const req = {page: currPage, listNum: listNum, sortOption:sortOption, queryData: props.queryData}
+    const req = {page: currPage, listNum: listNum, sortOption:sortOption, queryData: props.queryData, searchOption: props.searchOption}
     axios.post('/api/'+props.getListApi, req, {"Content-Type": 'application/json'})
     .then((response) => {
       setListData(response.data);
     })
-  },[currPage, listNum, sortOption, props.queryData])
+  },[currPage, listNum, sortOption, props.queryData, props.searchOption])
 
   useEffect(() => {
     setCurrPage(1);
@@ -80,6 +87,20 @@ function List(props) {
     <div className="listBox">
     <div className="listTitle">{props.listName} 목록</div>
     <div className="listMenu">
+      <div className="leftMenu">
+        {
+          props.listBtns ?
+          props.listBtns.map((btn) => {
+            return(
+              <button onClick={(e) => {axios.post('/api'+btn.api, checkedData, {"Content-Type": 'application/json'})}}>{btn.name}</button>
+            )
+          })
+          :
+          null
+        }
+      </div>
+
+    <div className="rightMenu">
       <button className="setShowElBtn" onClick={() => {setSetShowElModal(true)}}>구성 설정</button>
       {
         setShowElModal ?
@@ -93,14 +114,18 @@ function List(props) {
         {sortOptions.map((option) => {return(<option key={option} value={option}>{option}</option>)})}
       </select>
     </div>
+    </div>
     <table className="list">
       <thead>
       
       <tr>
+        <td>
+          <input className="listCheckbox" type={"checkbox"} checked={checkedData.length === listData.length} onChange={(e) => {changeCheckbox(e)}}/>
+        </td>
         {showEl.map((elKeyName, index) => {return(<th key={elKeyName} draggable className="el" onDragStart={(e) => {onDragStart(e, index)}} onDragEnter={() => {onDragEnter(index)}} onDragEnd={(e) => {onDragEnd(e)}} >{Array.isArray(props.elements[elKeyName]) ? props.elements[elKeyName][0]: props.elements[elKeyName]}</th>)})}
       </tr>
       </thead>
-      <Page showEl={showEl} listData={listData} elements={props.elements} setManageModal={props.setManageModal} />
+      <Page showEl={showEl} listData={listData} elements={props.elements} checkedData={checkedData} setCheckedData={setCheckedData} setManageModal={props.setManageModal} />
     
     </table>
     <div className="pages">
@@ -122,7 +147,6 @@ function List(props) {
 
 function SetShowElModal(props) {
   
-  const checkRef = useRef();
   const change = (e, elKeyName) => {
     if(e.target.checked) props.setShowEl([...props.showEl, elKeyName]);
     else {
@@ -157,23 +181,32 @@ function Page(props) {
         props.listData[0] ?
         props.listData.map((data) => {
           return(
-            <ListElement key={data._id} data={data} showEl={props.showEl} elements={props.elements} setManageModal={props.setManageModal} />
+            <ListElement key={data._id} data={data} showEl={props.showEl} elements={props.elements} checkedData={props.checkedData} setCheckedData={props.setCheckedData} setManageModal={props.setManageModal} />
           )
         })
         :
-        <div className="noData">데이터가 없습니다.</div>
+        <tr className="noData"><td>데이터가 없습니다.</td></tr>
       }
     </tbody>
   )
 }
 
 function ListElement(props) {
+  
+  const checkBoxChagne = (e) => {
+    if (e.target.checked) props.setCheckedData([...props.checkedData, props.data._id]);
+    else props.setCheckedData(props.checkedData.filter((id) => id !== props.data._id));    
+  }
+
   return(
-    <tr onClick={() => {props.setManageModal(props.data._id)}}>
+    <tr>
+    <td>
+      <input className="listCheckbox" type={"checkbox"} checked={props.checkedData.includes(props.data._id)} onChange={(e) => checkBoxChagne(e)} />
+    </td>
       {
         props.showEl.map((elKeyName) => {
         return(
-          <td key={elKeyName} className="el" >
+          <td key={elKeyName} className="el" onClick={() => {props.setManageModal(props.data._id)}} >
             {
               Array.isArray(props.elements[elKeyName])
                 ?

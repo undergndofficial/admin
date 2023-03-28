@@ -28,11 +28,13 @@ function InquiryManage () {
     endDate: ''
   })
 
+  const [searchOption, setSearchOption] = useState('and');
+
   return (
     <div className="manage">
       <h2>1대1 문의 관리 페이지</h2>
-      <SearchFilter inputs={searchInputs} setInputs={setSearchInputs} addedDatas={addedSearchDatas} setAddedDatas={setAddedSearchDatas} queryData={queryData} setQueryData={setQueryData} setDataLength={setDataLength} getLengthApi={'inquiry/getLength'} />
-      <List dataLength={dataLength} queryData={queryData} elements={elements} defaultShow={['inquiryName', 'inquiryCategory', 'poster', 'date']} listName='1대1 문의' getListApi={'inquiry/getInquiryList'} />
+      <SearchFilter inputs={searchInputs} setInputs={setSearchInputs} addedDatas={addedSearchDatas} setAddedDatas={setAddedSearchDatas} queryData={queryData} setQueryData={setQueryData} searchOption={searchOption} setSearchOption={setSearchOption} setDataLength={setDataLength} getLengthApi={'inquiry/getLength'} />
+      <List dataLength={dataLength} queryData={queryData} searchOption={searchOption} elements={elements} defaultShow={['inquiryName', 'inquiryCategory', 'poster', 'date']} listName='1대1 문의' getListApi={'inquiry/getInquiryList'} />
     </div>
   )
 }

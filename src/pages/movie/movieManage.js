@@ -9,6 +9,12 @@ function MovieManage () {
   const [queryData, setQueryData] = useState();
   const elements = {title: '제목', directors: '감독', scenarios: '각본', actors: '출연진', summary: '줄거리', rating: '관람등급', genres: '장르', tags: ['태그', 'tagName'], date: '등록일'}
 
+  const listBtns = [
+    {name: '삭제', api: '/movie/delete'},
+    {name: '공개', api: '/movie/open'},
+    {name: '미공개', api: '/movie/close'}
+  ];
+
   const [tags, setTags] = useState();
   const [tagSelectMenus, setTagsSelectMenus] = useState([]);
   
@@ -34,6 +40,8 @@ function MovieManage () {
     startDate: '',
     endDate: ''
   })
+
+  const [searchOption, setSearchOption] = useState('and');
   
 
   useEffect(() => {
@@ -59,8 +67,8 @@ function MovieManage () {
     <div className="manage">
       <h2>영화 관리 페이지</h2>
       {/* <MovieSearchFilter setQueryData={setQueryData} /> */}
-      <SearchFilter inputs={searchInputs} setInputs={setSearchInputs} addedDatas={addedSearchDatas} setAddedDatas={setAddedSearchDatas} queryData={queryData} setQueryData={setQueryData} setDataLength={setDataLength} getLengthApi={'movie/getLength'} />
-      <List dataLength={dataLength} queryData={queryData} elements={elements} defaultShow={['title', 'directors', 'scenarios', 'tags']} listName='영화' getListApi={'movie/getMovieList'} />
+      <SearchFilter inputs={searchInputs} setInputs={setSearchInputs} addedDatas={addedSearchDatas} setAddedDatas={setAddedSearchDatas} queryData={queryData} setQueryData={setQueryData} searchOption={searchOption} setSearchOption={setSearchOption} setDataLength={setDataLength} getLengthApi={'movie/getLength'} />
+      <List dataLength={dataLength} queryData={queryData} searchOption={searchOption} elements={elements} defaultShow={['title', 'directors', 'scenarios', 'tags']} listName='영화' getListApi={'movie/getMovieList'} listBtns={listBtns} />
     </div>
   )
 }

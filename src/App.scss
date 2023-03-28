@@ -130,6 +130,16 @@ main {
       margin: 0 auto;
       margin-top: 100px;
       text-align: center;
+
+      .searchOptionCheckbox {
+        margin: 0 auto;
+        margin-top: -15px;
+        margin-bottom: 15px;
+        input {
+          margin-left: 10px;
+        }
+      }
+
       .searchBtn {
         background-color: #fff;
         border: solid 1px black;
@@ -317,56 +327,80 @@ main {
     }
     
     .listMenu {
-      height: 40px;
-      border-top: solid 2px black;
-      position: relative;
+      
       display: flex;
       flex-direction: row;
       align-items: center;
-      justify-content: flex-end;
-      gap: 10px;
-      
-      .setShowElBtn {   
-        // transform: translate(230px, 8px);
-        background-color: rgba(0, 0, 0, 0);
-        border: solid 1px black;
-        border-radius: 8px;
-      }
+      justify-content: space-between;
+      border-top: solid 2px black;
+      height: 40px;
 
-      .setShowElModal {
-        position: absolute;
-        top: 35px;
-        right: 175px;
-        border: solid black 1px;
-        border-radius: 12px;
+      .leftMenu {
         display: flex;
-        flex-direction: column;
-        gap: 5px;
-        width: 120px;
-        background-color: #fff;
-        z-index: 9999;
-        -webkit-user-select:none;
-        -moz-user-select:none;
-        -ms-user-select:none;
-        user-select:none;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 10px;
+        margin-left: 10px;
 
-        input {
-          float: left;
-          margin-left: 8px;
-          cursor: pointer;
-        }
         button {
-          float: left;
-          border: none;
           background-color: rgba(0, 0, 0, 0);
-          font-size: small;
+          border: solid 1px black;
+          border-radius: 8px;
         }
       }
-      
-      select {
-        // transform: translate(250px, 6px);
-        background-color: rgba(0, 0, 0, 0);
-        border: solid 1px black;
+
+      .rightMenu {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-right: 10px;
+        
+        .setShowElBtn {   
+          // transform: translate(230px, 8px);
+          background-color: rgba(0, 0, 0, 0);
+          border: solid 1px black;
+          border-radius: 8px;
+        }
+  
+        .setShowElModal {
+          position: absolute;
+          top: 35px;
+          right: 175px;
+          border: solid black 1px;
+          border-radius: 12px;
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+          width: 120px;
+          background-color: #fff;
+          z-index: 9999;
+          -webkit-user-select:none;
+          -moz-user-select:none;
+          -ms-user-select:none;
+          user-select:none;
+  
+          input {
+            float: left;
+            margin-left: 8px;
+            cursor: pointer;
+          }
+          button {
+            float: left;
+            border: none;
+            background-color: rgba(0, 0, 0, 0);
+            font-size: small;
+          }
+        }
+        
+        select {
+          // transform: translate(250px, 6px);
+          background-color: rgba(0, 0, 0, 0);
+          border: solid 1px black;
+        }
       }
     }
     
@@ -415,7 +449,10 @@ main {
           // background-color: #000;
         }
         height: 49px;
-        
+
+        .listCheckbox {
+          margin-right: 5px;
+        }
         
         .el {
           width: 130px;

@@ -45,6 +45,8 @@ function UploadMovie() {
       console.log(res);
     })
     .catch((error) => {console.log(error)})
+
+    if(!alert("업로드 되었습니다!")) window.location.reload();
   }
 
   useEffect(() => {
