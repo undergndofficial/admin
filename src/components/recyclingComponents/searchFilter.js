@@ -7,8 +7,9 @@ function SearchFilter(props) {
   const [searchOptionCheckbox, setSearchOptionCheckbox] = useState('and');
 
   const search = () => {
+    console.log(props.addedDatas);
     props.setQueryData(props.addedDatas);
-    props.setSearchOption(searchOptionCheckbox)
+    props.setSearchOption(searchOptionCheckbox);
   }
 
   useEffect(() => {

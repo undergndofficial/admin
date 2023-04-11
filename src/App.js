@@ -18,6 +18,8 @@ import Signup from './pages/signup/signup';
 import UploadNotice from './pages/notice/uploadNotice';
 import UploadTag from './pages/tag/uploadTag';
 import PrivateRoute from './privateRoute';
+import DeletedMovieManage from './pages/movie/deletedMovieManage';
+import CopyMovieManage from './pages/test/copyMovieManage';
 
 function App() {
 
@@ -74,6 +76,7 @@ function App() {
         <Routes>
           <Route path='/' element={<PrivateRoute isAuth={isAuth} Component={<Main />} />} />
           <Route path='/movieManage' element={<PrivateRoute isAuth={isAuth} Component={<MovieManage />} />} />
+          <Route path='/deletedMovieManage' element={<PrivateRoute isAuth={isAuth} Component={<DeletedMovieManage />} /> } />
           <Route path='/tagManage' element={<PrivateRoute isAuth={isAuth} Component={<TagManage />} />} />
           <Route path='/uploadMovie' element={<PrivateRoute isAuth={isAuth} Component={<UploadMovie />} />} />
           <Route path='/noticeManage' element={<PrivateRoute isAuth={isAuth} Component={<NoticeManage />} />} />
@@ -84,6 +87,7 @@ function App() {
           <Route path='/signup' element={<Signup />} />
           <Route path='uploadNotice' element={<PrivateRoute isAuth={isAuth} Component={<UploadNotice />} />} />
           <Route path='/uploadTag' element={<PrivateRoute isAuth={isAuth} Component={<UploadTag />} />} />
+          <Route path='/test' element={<PrivateRoute isAuth={isAuth} Component={<CopyMovieManage />} />} />
         </Routes>
       </main>
     </div>

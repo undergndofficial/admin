@@ -3,15 +3,14 @@ import { useEffect, useState } from "react";
 import List from "../../components/recyclingComponents/list";
 import SearchFilter from "../../components/recyclingComponents/searchFilter";
 
-function MovieManage () {
+function CopyMovieManage () {
 
   const [dataLength, setDataLength] = useState();
   const [queryData, setQueryData] = useState();
   const elements = {title: '제목', directors: '감독', scenarios: '각본', actors: '출연진', summary: '줄거리', rating: '관람등급', genres: '장르', tags: ['태그', 'tagName'], date: '등록일'}
 
   const listBtns = [
-    {name: '삭제', api: '/movie/delete', prompt: { msg: "'삭제하겠습니다'를 입력하시면 삭제됩니다.", value: '삭제하겠습니다' }},
-    // {name: '삭제', api: '/movie/delete' },
+    {name: '삭제', api: '/movie/delete'},
     {name: '공개', api: '/movie/open'},
     {name: '미공개', api: '/movie/close'}
   ];
@@ -65,12 +64,12 @@ function MovieManage () {
 
   return (
     <div className="manage">
-      <h2>영화 관리 페이지</h2>
+      <h2>영화 관리 페이지(테스트)</h2>
       {/* <MovieSearchFilter setQueryData={setQueryData} /> */}
       <SearchFilter inputs={searchInputs} setInputs={setSearchInputs} addedDatas={addedSearchDatas} setAddedDatas={setAddedSearchDatas} queryData={queryData} setQueryData={setQueryData} searchOption={searchOption} setSearchOption={setSearchOption} setDataLength={setDataLength} getLengthApi={'movie/getLength'} />
-      <List dataLength={dataLength} queryData={queryData} searchOption={searchOption} elements={elements} defaultShow={['title', 'directors', 'scenarios', 'tags']} listName='영화' getListApi={'movie/getMovieList'} listBtns={listBtns} />
+      <List dataLength={dataLength} queryData={queryData} searchOption={searchOption} elements={elements} defaultShow={['title', 'directors', 'scenarios', 'tags']} listName='영화' getListApi={'copyMovie/getMovieList'} listBtns={listBtns} />
     </div>
   )
 }
 
-export default MovieManage;
+export default CopyMovieManage;

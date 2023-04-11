@@ -18,6 +18,12 @@ function Inputs(props) {
     if (! props.inputs[keyName].isPlural) props.setAddedDatas({...props.addedDatas, [props.inputs[keyName].addDataName]: e.target.value})
   }
 
+  const dateChange = (e, keyName, idxNum) => {
+    var date = props.addedDatas[keyName];
+    date.splice(idxNum, 1, new Date(e.target.value));
+    props.setAddedDatas({...props.addedDatas, [keyName]: date});
+  }
+
   const inputFile = (e, keyName) => {
     props.setInputs({...props.inputs, [keyName]:{...props.inputs[keyName], inputValue: e.target.files[0]}})
     if (! props.inputs[keyName].isPlural) props.setAddedDatas({...props.addedDatas, [props.inputs[keyName].addDataName]: e.target.files[0]})
@@ -89,9 +95,9 @@ function Inputs(props) {
                 props.inputs[keyName].type === 'date'
                 ?
                 <div className="dateInput">
-                <input type={'date'} onChange={(e) => {props.setAddedDatas({...props.addedDatas, [props.inputs[keyName].addDataName[0]]: new Date(e.target.value)})}} />
+                <input type={'date'} onChange={(e) => {dateChange(e, props.inputs[keyName].addDataName, 0)}} />
                 <span>~</span>
-                <input type={'date'} onChange={(e) => {props.setAddedDatas({...props.addedDatas, [props.inputs[keyName].addDataName[1]]: new Date(e.target.value)})}} />
+                <input type={'date'} onChange={(e) => {dateChange(e, props.inputs[keyName].addDataName, 1)}} />
                 </div>
                 :
                 null

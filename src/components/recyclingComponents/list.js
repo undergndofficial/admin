@@ -70,6 +70,21 @@ function List(props) {
     else setCheckedData([]);
   }
 
+  const clickListBtn = (btn) => {
+    if (btn.prompt) {
+      let text = prompt(btn.prompt.msg);
+      if (text === btn.prompt.value) {
+        axios.post('/api'+btn.api, checkedData, {"Content-Type": 'application/json'})
+        if( !alert(btn.name+'되었습니다') ) window.location.reload();
+      }
+      else alert('취소되었습니다.');
+    }
+    else {
+      axios.post('/api'+btn.api, checkedData, {"Content-Type": 'application/json'})
+      if( !alert(btn.name+'되었습니다') ) window.location.reload();
+    }
+  }
+
   useEffect(() => {
     console.log(props.queryData);
     const req = {page: currPage, listNum: listNum, sortOption:sortOption, queryData: props.queryData, searchOption: props.searchOption}
@@ -92,7 +107,7 @@ function List(props) {
           props.listBtns ?
           props.listBtns.map((btn) => {
             return(
-              <button onClick={(e) => {axios.post('/api'+btn.api, checkedData, {"Content-Type": 'application/json'})}}>{btn.name}</button>
+              <button onClick={() => {clickListBtn(btn)}}>{btn.name}</button>
             )
           })
           :

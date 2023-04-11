@@ -12,14 +12,13 @@ function NoticeManage() {
   const [searchInputs, setSearchInputs] = useState({
     noticeName: {name: '공지 제목', isPlural: true, isInput: true, type: 'default', addDataName: 'noticeName', inputValue: ''},
     noticeContent: {name: '공지 내용', isPlural: true, isInput: true, type: 'default', addDataName: 'noticeContent', inputValue: ''},
-    date: {name: '등록일', isPlural: false, isInput: false, type:'date', addDataName: ['startDate', 'endDate'], inputValue: ''}
+    date: {name: '등록일', isPlural: false, isInput: false, type:'date', addDataName: 'date', inputValue: ''}
   })
 
   const [addedSearchDatas, setAddedSearchDatas] = useState({
     noticeName:[],
     noticeContent: [],
-    startDate: '',
-    endDate: ''
+    date: ['', '']
   })
 
   const [searchOption, setSearchOption] = useState('and');

@@ -13,7 +13,7 @@ function ReportManage () {
     reportCategory: {name: '오류 종류', isPlural: true, isInput: false, type: 'select', addDataName: 'reportCategory', inputValue: '', selectMenus:['이게 안돼요', '저게 안돼요', '이게 이렇게 돼요']},
     content: {name: '오류 내용', isPlural: true, isInput: true, type: 'default', addDataName: 'content', inputValue: ''},
     poster: {name: '등록인', isPlural: true, isInput: true, type: 'default', addDataName: 'poster'}, 
-    date: {name: '등록일', isPlural: false, isInput: false, type:'date', addDataName: ['startDate', 'endDate'], inputValue: ''},
+    date: {name: '등록일', isPlural: false, isInput: false, type:'date', addDataName: 'date', inputValue: ''},
     isAnswered: {name: '답변여부', isPlural: false, isInput: true, type:'checkbox', addDataName: 'isAnswered', inputValue: '', checkList:['답변완료', '미답변']}
   })
 
@@ -22,8 +22,7 @@ function ReportManage () {
     content: [],
     poster: [],
     isAnswered: '',
-    startDate: '',
-    endDate: ''
+    date: ['', '']
   })
 
   const [searchOption, setSearchOption] = useState('and');

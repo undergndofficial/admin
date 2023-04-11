@@ -14,7 +14,7 @@ function InquiryManage () {
     inquiryCategory: {name: '문의 유형', isPlural: true, isInput: false, type: 'select', addDataName: 'inquiryCategory', inputValue: '', selectMenus:['유형1', '유형2', '유형3']},
     content: {name: '문의 내용', isPlural: true, isInput: true, type: 'default', addDataName: 'content', inputValue: ''},
     poster: {name: '질문자', isPlural: true, isInput: true, type: 'default', addDataName: 'poster'}, 
-    date: {name: '등록일', isPlural: false, isInput: false, type:'date', addDataName: ['startDate', 'endDate'], inputValue: ''},
+    date: {name: '등록일', isPlural: false, isInput: false, type:'date', addDataName: 'date', inputValue: ''},
     isAnswered: {name: '답변여부', isPlural: false, isInput: true, type:'checkbox', addDataName: 'isAnswered', inputValue: '', checkList:['답변완료', '미답변']}
   })
 
@@ -24,8 +24,7 @@ function InquiryManage () {
     content: [],
     poster: [],
     isAnswered: '',
-    startDate: '',
-    endDate: ''
+    date: ['', '']
   })
 
   const [searchOption, setSearchOption] = useState('and');
