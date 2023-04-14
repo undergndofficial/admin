@@ -1,13 +1,14 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import List from "../../components/recyclingComponents/list";
-import SearchFilter from "../../components/recyclingComponents/searchFilter";
+import { useState } from "react";
+import ManageMain from "../../components/recyclingComponents/manageMain";
 
 function ReportManage () {
 
-  const [dataLength, setDataLength] = useState();
-  const [queryData, setQueryData] = useState();
+  const listName = '오류 리포트';
+
   const elements = {reportCategory: '오류 종류', content: '내용', poster: ['등록인', 'userName'], date: '등록일'};
+
+  const defaultShow = ['reportCategory', 'content', 'poster', 'date'];
+  const api = 'report';
 
   const [searchInputs, setSearchInputs] = useState({
     reportCategory: {name: '오류 종류', isPlural: true, isInput: false, type: 'select', addDataName: 'reportCategory', inputValue: '', selectMenus:['이게 안돼요', '저게 안돼요', '이게 이렇게 돼요']},
@@ -25,13 +26,10 @@ function ReportManage () {
     date: ['', '']
   })
 
-  const [searchOption, setSearchOption] = useState('and');
-
   return (
     <div className="manage">
       <h2>오류 리포트 관리 페이지</h2>
-      <SearchFilter inputs={searchInputs} setInputs={setSearchInputs} addedDatas={addedSearchDatas} setAddedDatas={setAddedSearchDatas} queryData={queryData} setQueryData={setQueryData} searchOption={searchOption} setSearchOption={setSearchOption} setDataLength={setDataLength} getLengthApi={'report/getLength'} />
-      <List dataLength={dataLength} queryData={queryData} searchOption={searchOption} elements={elements} defaultShow={['reportCategory', 'content', 'poster', 'date']} listName='오류 리포트' getListApi={'report/getReportList'} />
+      <ManageMain searchInputs={searchInputs} setSearchInputs={setSearchInputs} addedSearchDatas={addedSearchDatas} setAddedSearchDatas={setAddedSearchDatas} api={api} elements={elements} defaultShow={defaultShow} listName={listName} />
     </div>
   )
 }

@@ -12,12 +12,14 @@ function SearchFilter(props) {
     props.setSearchOption(searchOptionCheckbox);
   }
 
+  const {queryData, searchOption, api, setDataLength} = props;
+
   useEffect(() => {
-    axios.post('/api/'+props.getLengthApi, {queryData: props.queryData, searchOption: props.searchOption}, {"Content-Type": 'application/json'})
+    axios.post('/api/'+api+'/getLength', {queryData: queryData, searchOption: searchOption}, {"Content-Type": 'application/json'})
     .then((response) => {
-      props.setDataLength(response.data);
+      setDataLength(response.data);
     })
-  },[props.queryData, props.searchOption])
+  }, [queryData, searchOption, api, setDataLength])
 
   return(
     <div className="searchFilter">

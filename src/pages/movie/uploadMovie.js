@@ -1,10 +1,8 @@
 import axios from "axios";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Inputs from "../../components/recyclingComponents/inputs";
 
 function UploadMovie() {
-
-  const [tags, setTags] = useState();
 
   const [inputs, setInputs] = useState({
     video: {name: '영화 동영상', isPlural: false, isInput: true, type: 'file', addDataName: 'video', inputValue: ''},
@@ -52,14 +50,14 @@ function UploadMovie() {
   useEffect(() => {
     axios.get('/api/tag/getTag')
     .then((res) => {
-      setTags(res.data);
+      // setTags(res.data);
       var tagNames = [];
-      res.data.map((tag) => {
+      for (let tag of res.data)  {
         tagNames.push(tag.tagName);
-      })
-      setInputs({...inputs, tag: {...inputs.tag, selectMenus: tagNames}})
+      }
+      setInputs(i => ({...i, tag: {...i.tag, selectMenus: tagNames}}))
     })
-  },[])
+  }, [])
 
   return (
     <div className="upload">

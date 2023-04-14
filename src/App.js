@@ -1,10 +1,8 @@
-import logo from './logo.svg';
 import './App.scss';
 import Header from './pages/header/header';
 import { Route, Routes } from 'react-router-dom';
 import Main from './pages/main/main';
 import MovieManage from './pages/movie/movieManage';
-import UploadMovie from './pages/movie/uploadMovie';
 import TagManage from './pages/tag/tagManage';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
@@ -15,8 +13,6 @@ import UserManage from './pages/user/userManage';
 import InquiryManage from './pages/inquiry/inquiryManage';
 import Login from './pages/login/login';
 import Signup from './pages/signup/signup';
-import UploadNotice from './pages/notice/uploadNotice';
-import UploadTag from './pages/tag/uploadTag';
 import PrivateRoute from './privateRoute';
 import DeletedMovieManage from './pages/movie/deletedMovieManage';
 import CopyMovieManage from './pages/test/copyMovieManage';
@@ -54,19 +50,19 @@ function App() {
   const [isAuth, setIsAuth] = useState(false);
   const [isDone, setIsDone] = useState(false);
 
-  const [adminInfo, setAdminInfo] = useState({});
+  // const [adminInfo, setAdminInfo] = useState({});
 
   useEffect(() => {
     axios.post('/api/admin/auth', {token: token}, {"Content-Type": 'application/json'})
     .then((res) => {
       setIsAuth(res.data.isAuth);
-      setAdminInfo(res.data.admin);
+      // setAdminInfo(res.data.admin);
       setIsDone(true);
     })
     .catch((error) =>
       console.log(error)
     )
-  }, [isDone])
+  }, [isDone, token])
 
   return (
     isDone ?
@@ -75,18 +71,15 @@ function App() {
       <main>
         <Routes>
           <Route path='/' element={<PrivateRoute isAuth={isAuth} Component={<Main />} />} />
-          <Route path='/movieManage' element={<PrivateRoute isAuth={isAuth} Component={<MovieManage />} />} />
+          <Route path='/movieManage/*' element={<PrivateRoute isAuth={isAuth} Component={<MovieManage />} />} />
           <Route path='/deletedMovieManage' element={<PrivateRoute isAuth={isAuth} Component={<DeletedMovieManage />} /> } />
-          <Route path='/tagManage' element={<PrivateRoute isAuth={isAuth} Component={<TagManage />} />} />
-          <Route path='/uploadMovie' element={<PrivateRoute isAuth={isAuth} Component={<UploadMovie />} />} />
-          <Route path='/noticeManage' element={<PrivateRoute isAuth={isAuth} Component={<NoticeManage />} />} />
+          <Route path='/tagManage/*' element={<PrivateRoute isAuth={isAuth} Component={<TagManage />} />} />\
+          <Route path='/noticeManage/*' element={<PrivateRoute isAuth={isAuth} Component={<NoticeManage />} />} />
           <Route path='/reportManage' element={<PrivateRoute isAuth={isAuth} Component={<ReportManage />} />} />
           <Route path='/userManage' element={<PrivateRoute isAuth={isAuth} Component={<UserManage />} />} />
           <Route path='/inquiryManage' element={<PrivateRoute isAuth={isAuth} Component={<InquiryManage />} />} />
           <Route path='/login' element={<Login setIsDone={setIsDone}/>} />
           <Route path='/signup' element={<Signup />} />
-          <Route path='uploadNotice' element={<PrivateRoute isAuth={isAuth} Component={<UploadNotice />} />} />
-          <Route path='/uploadTag' element={<PrivateRoute isAuth={isAuth} Component={<UploadTag />} />} />
           <Route path='/test' element={<PrivateRoute isAuth={isAuth} Component={<CopyMovieManage />} />} />
         </Routes>
       </main>

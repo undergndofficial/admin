@@ -1,13 +1,14 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import List from "../../components/recyclingComponents/list";
-import SearchFilter from "../../components/recyclingComponents/searchFilter";
+import { useState } from "react";
+import ManageMain from "../../components/recyclingComponents/manageMain";
 
 function InquiryManage () {
 
-  const [dataLength, setDataLength] = useState();
-  const [queryData, setQueryData] = useState();
+  const listName = '1대1 문의'
+
   const elements = {inquiryName: '제목', inquiryCategory: '문의 유형', content: '내용', poster: ['질문자', 'userName'], isAnswered: '답변여부', date: '등록일'};
+
+  const defaultShow = ['inquiryName', 'inquiryCategory', 'poster', 'date'];
+  const api = 'inquiry'
 
   const [searchInputs, setSearchInputs] = useState({
     inquiryName: {name: '제목', isPlural: true, isInput: true, type: 'default', addDataName: 'inquiryName', inputValue: ''},
@@ -17,7 +18,6 @@ function InquiryManage () {
     date: {name: '등록일', isPlural: false, isInput: false, type:'date', addDataName: 'date', inputValue: ''},
     isAnswered: {name: '답변여부', isPlural: false, isInput: true, type:'checkbox', addDataName: 'isAnswered', inputValue: '', checkList:['답변완료', '미답변']}
   })
-
   const [addedSearchDatas, setAddedSearchDatas] = useState({
     inquiryName:[],
     inquiryCategory: [],
@@ -27,13 +27,10 @@ function InquiryManage () {
     date: ['', '']
   })
 
-  const [searchOption, setSearchOption] = useState('and');
-
   return (
     <div className="manage">
       <h2>1대1 문의 관리 페이지</h2>
-      <SearchFilter inputs={searchInputs} setInputs={setSearchInputs} addedDatas={addedSearchDatas} setAddedDatas={setAddedSearchDatas} queryData={queryData} setQueryData={setQueryData} searchOption={searchOption} setSearchOption={setSearchOption} setDataLength={setDataLength} getLengthApi={'inquiry/getLength'} />
-      <List dataLength={dataLength} queryData={queryData} searchOption={searchOption} elements={elements} defaultShow={['inquiryName', 'inquiryCategory', 'poster', 'date']} listName='1대1 문의' getListApi={'inquiry/getInquiryList'} />
+      <ManageMain searchInputs={searchInputs} setSearchInputs={setSearchInputs} addedSearchDatas={addedSearchDatas} setAddedSearchDatas={setAddedSearchDatas} api={api} elements={elements} defaultShow={defaultShow} listName={listName} />
     </div>
   )
 }

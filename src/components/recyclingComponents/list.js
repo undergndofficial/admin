@@ -64,7 +64,9 @@ function List(props) {
   const changeCheckbox = (e) => {
     if (e.target.checked) {
       let listIds = [];
-      listData.map((data) => {listIds.push(data._id)});
+      for (let data of listData) {
+        listIds.push(data._id);
+      }
       setCheckedData(listIds);
     }
     else setCheckedData([]);
@@ -73,6 +75,7 @@ function List(props) {
   const clickListBtn = (btn) => {
     if (btn.prompt) {
       let text = prompt(btn.prompt.msg);
+      
       if (text === btn.prompt.value) {
         axios.post('/api'+btn.api, checkedData, {"Content-Type": 'application/json'})
         if( !alert(btn.name+'되었습니다') ) window.location.reload();
@@ -88,11 +91,11 @@ function List(props) {
   useEffect(() => {
     console.log(props.queryData);
     const req = {page: currPage, listNum: listNum, sortOption:sortOption, queryData: props.queryData, searchOption: props.searchOption}
-    axios.post('/api/'+props.getListApi, req, {"Content-Type": 'application/json'})
+    axios.post('/api/'+props.api+'/getList', req, {"Content-Type": 'application/json'})
     .then((response) => {
       setListData(response.data);
     })
-  },[currPage, listNum, sortOption, props.queryData, props.searchOption])
+  },[currPage, listNum, sortOption, props.queryData, props.searchOption, props.api])
 
   useEffect(() => {
     setCurrPage(1);
@@ -107,7 +110,7 @@ function List(props) {
           props.listBtns ?
           props.listBtns.map((btn) => {
             return(
-              <button onClick={() => {clickListBtn(btn)}}>{btn.name}</button>
+              <button key={btn.name} onClick={() => {clickListBtn(btn)}}>{btn.name}</button>
             )
           })
           :
