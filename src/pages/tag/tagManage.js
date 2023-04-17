@@ -32,6 +32,9 @@ function TagManage () {
   const listName = '태그';
   const api = 'tag';
 
+  const listBtns = [
+    {name: '삭제', api: '/tag/delete', prompt: { msg: "'삭제하겠습니다'를 입력하시면 삭제됩니다.", value: '삭제하겠습니다' }}
+  ];
 
   // const [searchOption, setSearchOption] = useState('and');
 
@@ -41,7 +44,7 @@ function TagManage () {
     <div className="manage">
       <h2>태그 관리 페이지</h2>
       <Routes>
-        <Route path="/" element={<ManageMain searchInputs={searchInputs} setSearchInputs={setSearchInputs} addedSearchDatas={addedSearchDatas} setAddedSearchDatas={setAddedSearchDatas} api={api} elements={elements} defaultShow={defaultShow} listName={listName} setManageModal={setTagManageModal} />} />
+        <Route path="/" element={<ManageMain searchInputs={searchInputs} setSearchInputs={setSearchInputs} addedSearchDatas={addedSearchDatas} setAddedSearchDatas={setAddedSearchDatas} api={api} elements={elements} defaultShow={defaultShow} listBtns={listBtns} listName={listName} uploadBtn={true} setManageModal={setTagManageModal} />} />
         <Route path="/upload" element={<Upload uploadInputs={uploadInputs} setUploadInputs={setUploadInputs} addedUploadDatas={addedUploadDatas} setAddedUploadDatas={setAddedUploadDatas} api={api} />} />
       </Routes>
       {tagMangeModal ? <TagManageModal id={tagMangeModal} setTagManageModal={setTagManageModal} /> : null}
@@ -55,7 +58,7 @@ function TagManageModal(props) {
   useEffect(() => {
     axios.post('/api/tag/getDetail', {id: props.id}, {"Content-Type": 'application/json'})
     .then((response) => {
-      setData(response.data);
+      setData(response.data); 
     })
   }, [props])
 
@@ -63,14 +66,7 @@ function TagManageModal(props) {
     <>
     <div className="manageModal">
       <button onClick={()=>{props.setTagManageModal(0)}}>x</button>
-      {
-        data ? 
-        Object.entries(data).map(([key, value]) => {
-          return(
-            <div>{value}</div>
-          )
-        })
-        : null}
+      <div>{props.id}</div>
     </div>
     <div className="manageModalOut" />
     </>

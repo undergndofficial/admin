@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function List(props) {
 
@@ -73,20 +74,25 @@ function List(props) {
   }
 
   const clickListBtn = (btn) => {
-    if (btn.prompt) {
-      let text = prompt(btn.prompt.msg);
-      
-      if (text === btn.prompt.value) {
+    if (checkedData[0]){
+      if (btn.prompt) {
+        let text = prompt(btn.prompt.msg);
+        
+        if (text === btn.prompt.value) {
+          axios.post('/api'+btn.api, checkedData, {"Content-Type": 'application/json'})
+          if( !alert(btn.name+'되었습니다') ) window.location.reload();
+        }
+        else alert('취소되었습니다.');
+      }
+      else {
         axios.post('/api'+btn.api, checkedData, {"Content-Type": 'application/json'})
         if( !alert(btn.name+'되었습니다') ) window.location.reload();
       }
-      else alert('취소되었습니다.');
     }
-    else {
-      axios.post('/api'+btn.api, checkedData, {"Content-Type": 'application/json'})
-      if( !alert(btn.name+'되었습니다') ) window.location.reload();
-    }
+    else alert('한 개 이상 선택해주세요');
   }
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     console.log(props.queryData);
@@ -106,6 +112,7 @@ function List(props) {
     <div className="listTitle">{props.listName} 목록</div>
     <div className="listMenu">
       <div className="leftMenu">
+        {props.uploadBtn ? <button onClick={() => {navigate('../upload')}}>등록</button>: null}
         {
           props.listBtns ?
           props.listBtns.map((btn) => {

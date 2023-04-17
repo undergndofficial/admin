@@ -20,7 +20,8 @@ function ManageMain(props) {
       <List dataLength={dataLength} queryData={queryData} 
         searchOption={searchOption} elements={props.elements} 
         defaultShow={props.defaultShow} listName={props.listName}
-        api={props.api} setManageModal={props.setManageModal} listBtns={props.listBtns}
+        api={props.api} setManageModal={props.setManageModal}
+        listBtns={props.listBtns} uploadBtn={props.uploadBtn}
       />
     </>
   )
