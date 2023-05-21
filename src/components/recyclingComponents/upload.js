@@ -1,8 +1,9 @@
 import axios from "axios";
 import Inputs from "./inputs";
+import { useState } from "react";
 
 function Upload(props) {
-  
+
   const upload = () => {
     axios.post('/api/'+props.api+'/upload', props.addedUploadDatas, {"Content-Type": 'application/json'})
     .then((res) => {

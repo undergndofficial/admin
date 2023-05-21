@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import ManageMain from "../../components/recyclingComponents/manageMain";
 import Upload from "../../components/recyclingComponents/upload";
+import Inputs from "../../components/recyclingComponents/inputs";
 
 function MovieManage () {
 
@@ -37,6 +38,7 @@ function MovieManage () {
     date:['', '']
   })
   
+  
   const [uploadInputs, setUploadInputs] = useState({
     video: {name: '영화 동영상', isPlural: false, isInput: true, type: 'file', addDataName: 'video', inputValue: ''},
     poster: {name: '영화 포스터', isPlural: false, isInput: true, type: 'file', addDataName: 'poster', inputValue: ''},
@@ -50,7 +52,7 @@ function MovieManage () {
     tag: {name: '태그', isPlural: true, isInput: false, type: 'select', addDataName: 'tags', inputValue: '', selectMenus: []},
     rating: {name: '관람등급', isPlural: false, isInput: false, type: 'select', addDataName: 'rating', inputValue: '', selectMenus: ['전체관람가', '12세이상 관람가', '15세이상 관람가', '청소년관람불가']},
     specialNote: {name: '특이사항', isPlural: false, isInput: false, type: 'textarea', addDataName: 'specialNote', inputValue: ''}
-  })
+  });
   const [addedUploadDatas, setAddedUploadDatas] = useState({
     title: '',
     summary: '',
@@ -74,7 +76,12 @@ function MovieManage () {
     {name: '공개', api: '/movie/open'},
     {name: '미공개', api: '/movie/close'}
   ];
+
+  const [manageModal, setManageModal] = useState();
   
+  
+  document.body.style.overflow = manageModal ? 'hidden': 'auto';
+
   useEffect(() => {
     axios.get('/api/tag/getTag')
     .then((res) => {
@@ -99,10 +106,77 @@ function MovieManage () {
     <div className="manage">
       <h2>영화 관리 페이지</h2>
       <Routes>
-        <Route path="/" element={<ManageMain searchInputs={searchInputs} setSearchInputs={setSearchInputs} addedSearchDatas={addedSearchDatas} setAddedSearchDatas={setAddedSearchDatas} api={api} elements={elements} defaultShow={defaultShow} listName={listName} listBtns={listBtns} uploadBtn={true}/>} />
+        <Route path="/" element={<ManageMain searchInputs={searchInputs} setSearchInputs={setSearchInputs} addedSearchDatas={addedSearchDatas} setAddedSearchDatas={setAddedSearchDatas} api={api} elements={elements} defaultShow={defaultShow} listName={listName} listBtns={listBtns} uploadBtn={true} setManageModal={setManageModal}/>} />
         <Route path="/upload" element={<Upload uploadInputs={uploadInputs} setUploadInputs={setUploadInputs} addedUploadDatas={addedUploadDatas} setAddedUploadDatas={setAddedUploadDatas} api={api} />} />
       </Routes>
+      {manageModal ? <ManageModal id={manageModal} setManageModal={setManageModal} /> : null}
     </div>
+  )
+}
+
+function ManageModal(props) {
+  const [data, setData] = useState();
+  
+  const [inputs, setInputs] = useState({
+    video: {name: '영화 동영상', isPlural: false, isInput: true, type: 'file', addDataName: 'video', inputValue: ''},
+    poster: {name: '영화 포스터', isPlural: false, isInput: true, type: 'file', addDataName: 'poster', inputValue: ''},
+    subtitle: {name: '자막', isPlural: false, isInput: true, type: 'file', addDataName: 'subtitle', inputValue: ''},
+    title: {name: '제목', isPlural: false, isInput: true, type: 'default', addDataName: 'title', inputValue: ''},
+    summary: {name: '줄거리', isPlural: false, isInput: false, type: 'textarea', addDataName: 'summary', inputValue: ''},
+    director: {name: '감독', isPlural: true, isInput: true, type: 'default', addDataName: 'directors', inputValue: ''},
+    scenario: {name: '각본', isPlural: true, isInput: true, type: 'default', addDataName: 'scenarios', inputValue: ''},
+    actor: {name: '출연진', isPlural: true, isInput: true, type: 'default', addDataName: 'actors', inputValue: ''},
+    genre: {name: '장르', isPlural: true, isInput: false, type: 'select', addDataName: 'genres', inputValue: '', selectMenus: ['공포', '판타지', '액션', '멜로', '스릴러']},
+    tag: {name: '태그', isPlural: true, isInput: false, type: 'select', addDataName: 'tags', inputValue: '', selectMenus: []},
+    rating: {name: '관람등급', isPlural: false, isInput: false, type: 'select', addDataName: 'rating', inputValue: '', selectMenus: ['전체관람가', '12세이상 관람가', '15세이상 관람가', '청소년관람불가']},
+    specialNote: {name: '특이사항', isPlural: false, isInput: false, type: 'textarea', addDataName: 'specialNote', inputValue: ''}
+  });
+
+  const [addedDatas, setAddedDatas] = useState({
+    title: '',
+    summary: '',
+    rating: '',
+    directors: [],
+    scenarios: [],
+    actors: [],
+    genres: [],
+    tags: [],
+    video: '',
+    poster: '',
+    subtitle: '',
+    specialNote: ''
+  })
+
+  useEffect(() => {
+    axios.post('/api/movie/getDetail', {id: props.id}, {"Content-Type": 'application/json'})
+    .then((response) => {
+      setData(response.data);
+      console.log(response.data); 
+    })
+  }, [props.id])
+
+  useEffect(() => {
+    if(data){
+      Object.entries(inputs).map(([key, value]) => {
+        console.log(addedDatas)
+        setAddedDatas(prevAddedDatas => ({...prevAddedDatas, [value.addDataName]: data[value.addDataName]}));
+        console.log(addedDatas)
+        if (!value.isPlural) {
+          setInputs(prevInputs => ({...prevInputs, [key]: {...value, inputValue: data[value.addDataName]}}));
+        }
+      })
+    }
+  }, [data])
+
+  return(
+    <>
+    <div className="manageModal">
+      <button className="closeBtn" onClick={()=>{props.setManageModal(0)}}>x</button>
+      <Inputs inputs={inputs} setInputs={setInputs} addedDatas={addedDatas} setAddedDatas={setAddedDatas} />
+      <button className="modifyBtn">수정</button>
+    </div>
+    <div className="manageModalOut" />
+    </>
   )
 }
 

@@ -25,8 +25,8 @@ function DeletedMovieManage () {
     registrant: {name: '등록인', isPlural: true, isInput: true, type: 'default', addDataName: 'registrants', inputValue: ''},
     genre: {name: '장르', isPlural: true, isInput: false, type: 'select', addDataName: 'genres', inputValue: '', selectMenus: ['공포', '판타지', '액션', '멜로', '스릴러']},
     tag: {name: '태그', isPlural: true, isInput: false, type: 'select', addDataName: 'tags', inputValue: '', selectMenus: []},
-    date: {name: '신청일', isPlural: false, isInput: false, type:'date', addDataName: ['startDate', 'endDate'], inputValue: ''},
-    deletedDate: {name: '삭제일', isPlural: false, isInput: false, type:'date', addDataName: ['startDate', 'endDate'], inputValue: ''}
+    date: {name: '신청일', isPlural: false, isInput: false, type:'date', addDataName: 'date', inputValue: ''},
+    deletedDate: {name: '삭제일', isPlural: false, isInput: false, type:'date', addDataName: 'deletedDate', inputValue: ''}
   })
 
   const [addedSearchDatas, setAddedSearchDatas] = useState({
@@ -37,10 +37,8 @@ function DeletedMovieManage () {
     registrants:[],
     genres:[],
     tags:[],
-    startDate: '',
-    endDate: '',
-    startDeletedDate: '',
-    endDeletedDate: ''
+    date: ['', ''],
+    deletedDate: ['', '']
   })
   
   useEffect(() => {

@@ -79,9 +79,9 @@ function Inputs(props) {
                   return(
                     <div key={idx} className="checkbox">
                       <input id={"checkbox"+keyName+idx} type={"checkbox"} value={checkbox} checked={checkbox === value.inputValue} onClick={(e) => {
-                        var value = e.target.checked? e.target.value: '' ; 
-                        props.setInputs({...props.inputs, [keyName]:{...value, inputValue: value}}); 
-                        props.setAddedDatas({...props.addedDatas, [value.addDataName]: value});
+                        let checkValue = e.target.checked? e.target.value: '' ; 
+                        props.setInputs({...props.inputs, [keyName]:{...value, inputValue: checkValue}}); 
+                        props.setAddedDatas({...props.addedDatas, [value.addDataName]: checkValue});
                       }} />
                       <span onClick={() => {document.getElementById("checkbox"+keyName+idx).click()}}>{checkbox}</span>
                     </div>

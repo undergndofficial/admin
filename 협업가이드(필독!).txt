@@ -1,0 +1,10 @@
+undergroundManageBackend의 올라간 협업 가이드와 
+undergroundManageBackend의 package.json 파일의 연관성을 찾고
+
+undergroundManageFrontend의 package.json 파일을 이용해서
+외부 라이브러리를 설치해봅시다!!
+
+구글링 적극 활용
+
+ex) 구글에 'npm axios 설치하는법' 검색 후 설치하기
+키워드: 'axios 설치' 'install axios' 'how to insatll axios' 등등

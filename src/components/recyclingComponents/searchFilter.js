@@ -8,6 +8,7 @@ function SearchFilter(props) {
 
   const search = () => {
     console.log(props.addedDatas);
+    console.log(props.inputs)
     props.setQueryData(props.addedDatas);
     props.setSearchOption(searchOptionCheckbox);
   }

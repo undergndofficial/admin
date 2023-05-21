@@ -150,24 +150,40 @@ main {
         font-weight: 600;
       }
     }
-
+    
+    ::-webkit-scrollbar{
+      display: none;
+    }
     .manageModal {
-      width: 500px;
-      height: 700px;
+      width: 800px;
+      height: 800px;
       border-radius: 16px;
+      text-align: center;
       position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
       background-color: #fff;
+      overflow-y: auto;
+      
       z-index: 9999;
 
-      button {
+      .closeBtn {
         position: absolute;
         top: 2px;
         right: 2px;
         border: none;
         background-color: rgba(0, 0, 0, 0);
+      }
+      .modifyBtn {
+        background-color: #fff;
+        border: solid 1px black;
+        border-radius: 8px;
+        width: 50px;
+        height: 30px;
+        margin: auto;
+        margin-bottom: 20px;
+        font-weight: 600;
       }
     }
 
@@ -424,6 +440,9 @@ main {
         justify-content: center;
         font-size: 20px;
         font-weight: 700;
+        &:hover {
+          height: 300px;
+        }
       }
       
       thead {

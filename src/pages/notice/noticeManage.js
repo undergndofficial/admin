@@ -32,12 +32,18 @@ function NoticeManage() {
     noticetitle: ''
   });
 
+  const listBtns = [
+    {name: '삭제', api: '/notice/delete' },
+    {name: '공개', api: '/notice/open'},
+    {name: '미공개', api: '/notice/close'}
+  ];
+
 
   return(
     <div className="manage">
       <h2>공지 관리 페이지</h2>
       <Routes>
-        <Route path="/" element={<ManageMain searchInputs={searchInputs} setSearchInputs={setSearchInputs} addedSearchDatas={addedSearchDatas} setAddedSearchDatas={setAddedSearchDatas} api={api} elements={elements} defaultShow={defaultShow} listName={listName} uploadBtn={true} />} />
+        <Route path="/" element={<ManageMain searchInputs={searchInputs} setSearchInputs={setSearchInputs} addedSearchDatas={addedSearchDatas} setAddedSearchDatas={setAddedSearchDatas} api={api} elements={elements} defaultShow={defaultShow} listName={listName} uploadBtn={true} listBtns={listBtns} />} />
         <Route path="/upload" element={<Upload uploadInputs={uploadInputs} setUploadInputs={setUploadInputs} addedUploadDatas={addedUploadDatas} setAddedUploadDatas={setAddedUploadDatas} api={api} />} />
       </Routes>
     </div>
