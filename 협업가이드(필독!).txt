@@ -20,6 +20,6 @@ ex) 구글에 'npm axios 설치하는법' 검색 후 설치하기
 'undergroundManageBackend'도 함께 실행해야 합니다.
 
 먼저 'undergroundManageBackend'의 가이드를 보고 실행한 후
-'undergroundManageFrontend'를 실행하면 됩니다.
+'undergroundManageFrontend'를 실행하면 됩니다!
 
 'undergroundManageFrontend' 실행하는법: npm run start
