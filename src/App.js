@@ -64,7 +64,6 @@ function App() {
     )
   }, [isDone, token])
 
-  
   return (
     isDone ?
     <div className="App">
