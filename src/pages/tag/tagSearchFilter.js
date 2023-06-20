@@ -7,7 +7,7 @@ function TagSearchFilter(props) {
   const [inputs, setInputs] = useState({
     tagName: {name: '태그 이름', isPlural: true, isInput: true, type: 'default', addDataName: 'tagName', inputValue: ''},
     movies: {name: '영화', isPlural: true, isInput: true, type: 'default', addDataName: 'movies', inputValue: ''},
-    date: {name: '등록일', isPlural: false, isInput: false, type:'date', addDataName: ['startDate', 'endDate'], inputValue: ''}
+    createdDate: {name: '등록일', isPlural: false, isInput: false, type:'Date', addDataName: ['startDate', 'endDate'], inputValue: ''}
   })
 
   const [addedDatas, setAddedDatas] = useState({

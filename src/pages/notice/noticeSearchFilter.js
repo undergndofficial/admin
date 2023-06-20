@@ -4,13 +4,13 @@ import Inputs from "../../components/recyclingComponents/inputs";
 
 function NoticeSearchFilter(props) {
   const [inputs, setInputs] = useState({
-    noticeName: {name: '공지 제목', isPlural: true, isInput: true, type: 'default', addDataName: 'noticeName', inputValue: ''},
+    noticeTitle: {name: '공지 제목', isPlural: true, isInput: true, type: 'default', addDataName: 'noticeTitle', inputValue: ''},
     noticeContent: {name: '공지 내용', isPlural: true, isInput: true, type: 'default', addDataName: 'noticeContent', inputValue: ''},
     date: {name: '등록일', isPlural: false, isInput: false, type:'date', addDataName: ['startDate', 'endDate'], inputValue: ''}
   })
 
   const [addedDatas, setAddedDatas] = useState({
-    noticeName:[],
+    noticeTitle:[],
     noticeContent: [],
     startDate: '',
     endDate: ''

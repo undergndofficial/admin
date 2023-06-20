@@ -6,9 +6,9 @@ function DeletedMovieManage () {
 
   const listName = '삭제 영화';
 
-  const elements = {title: '제목', directors: '감독', scenarios: '각본', actors: '출연진', summary: '줄거리', rating: '관람등급', genres: '장르', tags: ['태그', 'tagName'], date: '등록일', deletedDate: '삭제일'}
+  const elements = {title: '제목', directors: '감독', screenwriters: '각본', actors: '출연진', summary: '줄거리', rating: '관람등급', genres: '장르', tags: ['태그', 'tagName'], date: '등록일', deletedDate: '삭제일'}
 
-  const defaultShow = ['title', 'directors', 'scenarios', 'tags'];
+  const defaultShow = ['title', 'directors', 'screenwriters', 'tags'];
   const api = 'deletedMovie';
 
   const listBtns = [
@@ -20,7 +20,7 @@ function DeletedMovieManage () {
   const [searchInputs, setSearchInputs] = useState({
     title: {name: '제목', isPlural: true, isInput: true, type: 'default', addDataName: 'title', inputValue: ''},
     director: {name: '감독', isPlural: true, isInput: true, type: 'default', addDataName: 'directors', inputValue: ''},
-    scenario: {name: '각본', isPlural: true, isInput: true, type: 'default', addDataName: 'scenarios', inputValue: ''},
+    screenwriter: {name: '각본', isPlural: true, isInput: true, type: 'default', addDataName: 'screenwriters', inputValue: ''},
     actor: {name: '출연진', isPlural: true, isInput: true, type: 'default', addDataName: 'actors', inputValue: ''},
     registrant: {name: '등록인', isPlural: true, isInput: true, type: 'default', addDataName: 'registrants', inputValue: ''},
     genre: {name: '장르', isPlural: true, isInput: false, type: 'select', addDataName: 'genres', inputValue: '', selectMenus: ['공포', '판타지', '액션', '멜로', '스릴러']},
@@ -32,7 +32,7 @@ function DeletedMovieManage () {
   const [addedSearchDatas, setAddedSearchDatas] = useState({
     title:[],
     directors:[],
-    scenarios:[],
+    screenwriters:[],
     actors:[],
     registrants:[],
     genres:[],

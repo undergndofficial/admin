@@ -19,6 +19,9 @@ import CopyMovieManage from './pages/test/copyMovieManage';
 
 function App() {
 
+  const isAuth = true;
+  const isDone = true;
+
   // const isLogin = () => {
   //   axios.post('/api/manager/auth', cookie[0].x_auth, {"Content-Type": 'application/json'})
   //   .then((res) => {
@@ -26,15 +29,15 @@ function App() {
   //   })
   //   console.log(cookie[0].x_auth);
   // }
-  const [, , removeCookies] = useCookies(['x_auth']);
+  // const [, , removeCookies] = useCookies(['x_auth']);
 
-  const cookies = new Cookies();
-  var token = cookies.get('x_auth') 
+  // const cookies = new Cookies();
+  // var token = cookies.get('x_auth') 
 
-  const logOut = () => {
-    removeCookies('x_auth');
-    window.location.reload();
-  }
+  // const logOut = () => {
+  //   removeCookies('x_auth');
+  //   window.location.reload();
+  // }
 
   // const sendToken = () => {
   //   let token = getCookieToken()
@@ -47,27 +50,29 @@ function App() {
   //   )
   // }
 
-  const [isAuth, setIsAuth] = useState(false);
-  const [isDone, setIsDone] = useState(false);
+  // const [isAuth, setIsAuth] = useState(false);
+  // const [isDone, setIsDone] = useState(false);
 
   // const [adminInfo, setAdminInfo] = useState({});
 
-  useEffect(() => {
-    axios.post('/api/admin/auth', {token: token}, {"Content-Type": 'application/json'})
-    .then((res) => {
-      setIsAuth(res.data.isAuth);
-      // setAdminInfo(res.data.admin);
-      setIsDone(true);
-    })
-    .catch((error) =>
-      console.log(error)
-    )
-  }, [isDone, token])
+  // useEffect(() => {
+  //   axios.post('/api/admin/auth', {token: token}, {"Content-Type": 'application/json'})
+  //   .then((res) => {
+  //     setIsAuth(res.data.isAuth);
+  //     // setAdminInfo(res.data.admin);
+  //     setIsDone(true);
+  //   })
+  //   .catch((error) =>
+  //     console.log(error)
+  //   )
+  // }, [isDone, token])
 
   return (
     isDone ?
     <div className="App">
-      <Header isAuth={isAuth} logOut={logOut}/>
+      <Header isAuth={isAuth} 
+      // logOut={logOut}
+      />
       <main>
         <Routes>
           <Route path='/' element={<PrivateRoute isAuth={isAuth} Component={<Main />} />} />
@@ -78,7 +83,9 @@ function App() {
           <Route path='/reportManage' element={<PrivateRoute isAuth={isAuth} Component={<ReportManage />} />} />
           <Route path='/userManage' element={<PrivateRoute isAuth={isAuth} Component={<UserManage />} />} />
           <Route path='/inquiryManage' element={<PrivateRoute isAuth={isAuth} Component={<InquiryManage />} />} />
-          <Route path='/login' element={<Login setIsDone={setIsDone}/>} />
+          <Route path='/login' element={<Login 
+          // setIsDone={setIsDone}
+          />} />
           <Route path='/signup' element={<Signup />} />
           <Route path='/test' element={<PrivateRoute isAuth={isAuth} Component={<CopyMovieManage />} />} />
         </Routes>

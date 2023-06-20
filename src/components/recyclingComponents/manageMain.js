@@ -11,7 +11,7 @@ function ManageMain(props) {
 
   return(
     <>
-      <SearchFilter inputs={props.searchInputs} setInputs={props.setSearchInputs} 
+      <SearchFilter inputs={props.searchInputs} 
         addedDatas={props.addedSearchDatas} setAddedDatas={props.setAddedSearchDatas}
         queryData={queryData} setQueryData={setQueryData}
         searchOption={searchOption} setSearchOption={setSearchOption} 

@@ -47,17 +47,17 @@ function UploadMovie() {
     if(!alert("업로드 되었습니다!")) window.location.reload();
   }
 
-  useEffect(() => {
-    axios.get('/api/tag/getTag')
-    .then((res) => {
-      // setTags(res.data);
-      var tagNames = [];
-      for (let tag of res.data)  {
-        tagNames.push(tag.tagName);
-      }
-      setInputs(i => ({...i, tag: {...i.tag, selectMenus: tagNames}}))
-    })
-  }, [])
+  // useEffect(() => {
+  //   axios.get('/api/tag/getTag')
+  //   .then((res) => {
+  //     // setTags(res.data);
+  //     var tagNames = [];
+  //     for (let tag of res.data)  {
+  //       tagNames.push(tag.tagName);
+  //     }
+  //     setInputs(i => ({...i, tag: {...i.tag, selectMenus: tagNames}}))
+  //   })
+  // }, [])
 
   return (
     <div className="upload">

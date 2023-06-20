@@ -5,13 +5,13 @@ import Inputs from "../../components/recyclingComponents/inputs";
 function UploadNotice() {
 
   const [inputs, setInputs] = useState({
-    noticeName: {name: '공지 제목', isPlural: false, isInput: true, type: 'default', addDataName: 'noticeName', inputValue: ''},
+    noticeTitle: {name: '공지 제목', isPlural: false, isInput: true, type: 'default', addDataName: 'noticeTitle', inputValue: ''},
     noticeContent: {name: '공지 내용', isPlural: false, isInput: false, type: 'textarea', addDataName: 'noticeContent', inputValue: ''}
   })
 
   const [notice, setNotice] = useState({
-    noticeName: '',
-    noticetitle: ''
+    noticeTitle: '',
+    noticeContent: ''
   })
 
   const upload = () => {

@@ -9,26 +9,26 @@ function TagManage () {
 
   // const [dataLength, setDataLength] = useState();
   // const [queryData, setQueryData] = useState();
-  const elements = {tagName: '태그 이름', movies: ['영화', 'title'], date: '등록일'};
+  const elements = {tagName: '태그 이름', movies: ['영화', 'title'], createdDate: '등록일'};
 
-  const [searchInputs, setSearchInputs] = useState({
-    tagName: {name: '태그 이름', isPlural: true, isInput: true, type: 'default', addDataName: 'tagName', inputValue: ''},
-    movies: {name: '영화', isPlural: true, isInput: true, type: 'default', addDataName: 'movies', inputValue: ''},
-    date: {name: '등록일', isPlural: false, isInput: false, type:'date', addDataName: 'date', inputValue: ''}
-  })
+  const searchInputs = {
+    tagName: {name: '태그 이름', isPlural: true, isInput: true, type: 'default', addDataName: 'tagName'},
+    movies: {name: '영화', isPlural: true, isInput: true, type: 'default', addDataName: 'movies'},
+    createdDate: {name: '등록일', isPlural: false, isInput: false, type:'date', addDataName: 'createdDate'}
+  };
   const [addedSearchDatas, setAddedSearchDatas] = useState({
     tagName:[],
     movies: [],
-    date: ['', '']
+    createdDate: ['', '']
   })
 
-  const [uploadInputs, setUploadInputs] = useState({
-    tagName: {name: '태그 이름', isPlural: false, isInput: true, type: 'default', addDataName: 'tagName', inputValue: ''},
-  });
+  const uploadInputs = {
+    tagName: {name: '태그 이름', isPlural: false, isInput: true, type: 'default', addDataName: 'tagName'},
+  };
   const [addedUploadDatas, setAddedUploadDatas] = useState({tagName:''});
 
 
-  const defaultShow = ['tagName', 'movies', 'date'];
+  const defaultShow = ['tagName', 'movies', 'createdDate'];
   const listName = '태그';
   const api = 'tag';
 
@@ -44,8 +44,8 @@ function TagManage () {
     <div className="manage">
       <h2>태그 관리 페이지</h2>
       <Routes>
-        <Route path="/" element={<ManageMain searchInputs={searchInputs} setSearchInputs={setSearchInputs} addedSearchDatas={addedSearchDatas} setAddedSearchDatas={setAddedSearchDatas} api={api} elements={elements} defaultShow={defaultShow} listBtns={listBtns} listName={listName} uploadBtn={true} setManageModal={setTagManageModal} />} />
-        <Route path="/upload" element={<Upload uploadInputs={uploadInputs} setUploadInputs={setUploadInputs} addedUploadDatas={addedUploadDatas} setAddedUploadDatas={setAddedUploadDatas} api={api} />} />
+        <Route path="/" element={<ManageMain searchInputs={searchInputs} addedSearchDatas={addedSearchDatas} setAddedSearchDatas={setAddedSearchDatas} api={api} elements={elements} defaultShow={defaultShow} listBtns={listBtns} listName={listName} uploadBtn={true} setManageModal={setTagManageModal} />} />
+        <Route path="/upload" element={<Upload uploadInputs={uploadInputs} addedUploadDatas={addedUploadDatas} setAddedUploadDatas={setAddedUploadDatas} api={api} />} />
       </Routes>
       {tagMangeModal ? <TagManageModal id={tagMangeModal} setTagManageModal={setTagManageModal} /> : null}
     </div>

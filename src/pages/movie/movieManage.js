@@ -9,28 +9,40 @@ function MovieManage () {
 
   // const [dataLength, setDataLength] = useState();
   // const [queryData, setQueryData] = useState();
+  const [tags, setTags] = useState([]);
+  const [genres, setGenres] = useState([]);
+  const [filmPeoples, setFilmPeoples] = useState([]);
 
   const listName = '영화'
 
-  const elements = {title: '제목', directors: '감독', scenarios: '각본', actors: '출연진', summary: '줄거리', rating: '관람등급', genres: '장르', tags: ['태그', 'tagName'], date: '등록일'}
+  const elements = {title: '제목', directors: '감독', screenwriters: '각본', actors: '출연진', summary: '줄거리', rating: '관람등급', genres: '장르', tags: ['태그', 'tagName'], date: '등록일'}
 
-  const defaultShow = ['title', 'directors', 'scenarios', 'tags'];
+  const defaultShow = ['title', 'directors', 'screenwriters', 'tags'];
   const api = 'movie';
   
-  const [searchInputs, setSearchInputs] = useState({
-    title: {name: '제목', isPlural: true, isInput: true, type: 'default', addDataName: 'title', inputValue: ''},
-    director: {name: '감독', isPlural: true, isInput: true, type: 'default', addDataName: 'directors', inputValue: ''},
-    scenario: {name: '각본', isPlural: true, isInput: true, type: 'default', addDataName: 'scenarios', inputValue: ''},
-    actor: {name: '출연진', isPlural: true, isInput: true, type: 'default', addDataName: 'actors', inputValue: ''},
-    registrant: {name: '등록인', isPlural: true, isInput: true, type: 'default', addDataName: 'registrants', inputValue: ''},
-    genre: {name: '장르', isPlural: true, isInput: false, type: 'select', addDataName: 'genres', inputValue: '', selectMenus: ['공포', '판타지', '액션', '멜로', '스릴러']},
-    tag: {name: '태그', isPlural: true, isInput: false, type: 'select', addDataName: 'tags', inputValue: '', selectMenus: []},
-    date: {name: '신청일', isPlural: false, isInput: false, type:'date', addDataName: 'date', inputValue: ''}
-  })
+  const searchInputs = {
+    title: {name: '제목', isPlural: true, isInput: true, type: 'default', addDataName: 'title'},
+    director: {name: '감독', isPlural: true, isInput: true, type: 'default', addDataName: 'directors'},
+    screenwriter: {name: '각본', isPlural: true, isInput: true, type: 'default', addDataName: 'screenwriters'},
+    actor: {name: '출연진', isPlural: true, isInput: true, type: 'default', addDataName: 'actors'},
+    registrant: {name: '등록인', isPlural: true, isInput: true, type: 'default', addDataName: 'registrants'},
+    genre: {name: '장르', isPlural: true, isInput: false, type: 'select', addDataName: 'genres', selectMenus: genres, isForeign: true, valueKey: 'genreName'},
+    tag: {name: '태그', isPlural: true, isInput: false, type: 'select', addDataName: 'tags', selectMenus: tags, isForeign: true, valueKey: 'tagName'},
+    date: {name: '신청일', isPlural: false, isInput: false, type:'date', addDataName: 'date'}
+  };
+
+  // const [searchInputValues, setSearchInputValues] = useState({
+
+  // })
+
+  // const a = tags;
+
+  // const [inputValues, setInputValues] = useState({})
+
   const [addedSearchDatas, setAddedSearchDatas] = useState({
     title:[],
     directors:[],
-    scenarios:[],
+    screenwriters:[],
     actors:[],
     registrants:[],
     genres:[],
@@ -39,26 +51,26 @@ function MovieManage () {
   })
   
   
-  const [uploadInputs, setUploadInputs] = useState({
-    video: {name: '영화 동영상', isPlural: false, isInput: true, type: 'file', addDataName: 'video', inputValue: ''},
-    poster: {name: '영화 포스터', isPlural: false, isInput: true, type: 'file', addDataName: 'poster', inputValue: ''},
-    subtitle: {name: '자막', isPlural: false, isInput: true, type: 'file', addDataName: 'subtitle', inputValue: ''},
-    title: {name: '제목', isPlural: false, isInput: true, type: 'default', addDataName: 'title', inputValue: ''},
-    summary: {name: '줄거리', isPlural: false, isInput: false, type: 'textarea', addDataName: 'summary', inputValue: ''},
-    director: {name: '감독', isPlural: true, isInput: true, type: 'default', addDataName: 'directors', inputValue: ''},
-    scenario: {name: '각본', isPlural: true, isInput: true, type: 'default', addDataName: 'scenarios', inputValue: ''},
-    actor: {name: '출연진', isPlural: true, isInput: true, type: 'default', addDataName: 'actors', inputValue: ''},
-    genre: {name: '장르', isPlural: true, isInput: false, type: 'select', addDataName: 'genres', inputValue: '', selectMenus: ['공포', '판타지', '액션', '멜로', '스릴러']},
-    tag: {name: '태그', isPlural: true, isInput: false, type: 'select', addDataName: 'tags', inputValue: '', selectMenus: []},
-    rating: {name: '관람등급', isPlural: false, isInput: false, type: 'select', addDataName: 'rating', inputValue: '', selectMenus: ['전체관람가', '12세이상 관람가', '15세이상 관람가', '청소년관람불가']},
-    specialNote: {name: '특이사항', isPlural: false, isInput: false, type: 'textarea', addDataName: 'specialNote', inputValue: ''}
-  });
+  const uploadInputs = {
+    video: {name: '영화 동영상', isPlural: false, isInput: true, type: 'file', addDataName: 'video'},
+    poster: {name: '영화 포스터', isPlural: false, isInput: true, type: 'file', addDataName: 'poster'},
+    subtitle: {name: '자막', isPlural: false, isInput: true, type: 'file', addDataName: 'subtitle'},
+    title: {name: '제목', isPlural: false, isInput: true, type: 'default', addDataName: 'title'},
+    summary: {name: '줄거리', isPlural: false, isInput: false, type: 'textarea', addDataName: 'summary'},
+    director: {name: '감독', isPlural: true, isInput: false, type: 'select', addDataName: 'directors', selectMenus: filmPeoples, isForeign: true, valueKey: 'filmPeopleName'},
+    screenwriter: {name: '각본', isPlural: true, isInput: false, type: 'select', addDataName: 'screenwriters', selectMenus: filmPeoples, isForeign: true, valueKey: 'filmPeopleName'},
+    actor: {name: '출연진', isPlural: true, isInput: false, type: 'select', addDataName: 'actors', selectMenus: filmPeoples, isForeign: true, valueKey: 'filmPeopleName'},
+    genre: {name: '장르', isPlural: true, isInput: false, type: 'select', addDataName: 'genres', selectMenus: genres, isForeign: true, valueKey: 'genreName'},
+    tag: {name: '태그', isPlural: true, isInput: false, type: 'select', addDataName: 'tags', selectMenus: tags, isForeign: true, valueKey: 'tagName'},
+    rating: {name: '관람등급', isPlural: false, isInput: false, type: 'select', addDataName: 'rating', selectMenus: ['전체관람가', '12세이상 관람가', '15세이상 관람가', '청소년관람불가'], isForeign: false},
+    specialNote: {name: '특이사항', isPlural: false, isInput: false, type: 'textarea', addDataName: 'specialNote',}
+  };
   const [addedUploadDatas, setAddedUploadDatas] = useState({
     title: '',
     summary: '',
     rating: '',
     directors: [],
-    scenarios: [],
+    screenwriters: [],
     actors: [],
     genres: [],
     tags: [],
@@ -84,15 +96,27 @@ function MovieManage () {
 
   useEffect(() => {
     axios.get('/api/tag/getTag')
-    .then((res) => {
-      // setTags(res.data);
-      var tagNames = [];
-      for(let tag of res.data) {
-        tagNames.push(tag.tagName);
-      }
-      setSearchInputs(inputs => ({...inputs, tag: {...inputs.tag, selectMenus: tagNames}}));
-      setUploadInputs(inputs => ({...inputs, tag: {...inputs.tag, selectMenus: tagNames}}));
-    })
+    .then((res) => setTags(res.data))
+      // var tagNames = [];
+      // for(let tag of res.data) {
+      //   tagNames.push(tag.tagName);
+      // }
+      // setSearchInputs(inputs => ({...inputs, tag: {...inputs.tag, selectMenus: tagNames}}));
+      // setUploadInputs(inputs => ({...inputs, tag: {...inputs.tag, selectMenus: tagNames}}));
+    
+    axios.get('/api/genre/get')
+    .then((res) => setGenres(res.data))
+
+    axios.get('/api/filmPeople/get')
+    .then((res) => setFilmPeoples(res.data));
+    // axios.get('/api/filmPeople/get')
+    // .then((res) => {
+    //   let filmPeoples = [];
+    //   for(let filmPeople in res.data) {
+    //     filmPeoples.push(filmPeople);
+    //   }
+    //   setFilmPeople(filmPeoples);
+    // })
   }, [])
 
   // useEffect(() => {
@@ -106,8 +130,8 @@ function MovieManage () {
     <div className="manage">
       <h2>영화 관리 페이지</h2>
       <Routes>
-        <Route path="/" element={<ManageMain searchInputs={searchInputs} setSearchInputs={setSearchInputs} addedSearchDatas={addedSearchDatas} setAddedSearchDatas={setAddedSearchDatas} api={api} elements={elements} defaultShow={defaultShow} listName={listName} listBtns={listBtns} uploadBtn={true} setManageModal={setManageModal}/>} />
-        <Route path="/upload" element={<Upload uploadInputs={uploadInputs} setUploadInputs={setUploadInputs} addedUploadDatas={addedUploadDatas} setAddedUploadDatas={setAddedUploadDatas} api={api} />} />
+        <Route path="/" element={<ManageMain searchInputs={searchInputs} addedSearchDatas={addedSearchDatas} setAddedSearchDatas={setAddedSearchDatas} api={api} elements={elements} defaultShow={defaultShow} listName={listName} listBtns={listBtns} uploadBtn={true} setManageModal={setManageModal}/>} />
+        <Route path="/upload" element={<Upload uploadInputs={uploadInputs} addedUploadDatas={addedUploadDatas} setAddedUploadDatas={setAddedUploadDatas} api={api} />} />
       </Routes>
       {manageModal ? <ManageModal id={manageModal} setManageModal={setManageModal} /> : null}
     </div>
@@ -124,7 +148,7 @@ function ManageModal(props) {
     title: {name: '제목', isPlural: false, isInput: true, type: 'default', addDataName: 'title', inputValue: ''},
     summary: {name: '줄거리', isPlural: false, isInput: false, type: 'textarea', addDataName: 'summary', inputValue: ''},
     director: {name: '감독', isPlural: true, isInput: true, type: 'default', addDataName: 'directors', inputValue: ''},
-    scenario: {name: '각본', isPlural: true, isInput: true, type: 'default', addDataName: 'scenarios', inputValue: ''},
+    screenwriter: {name: '각본', isPlural: true, isInput: true, type: 'default', addDataName: 'screenwriters', inputValue: ''},
     actor: {name: '출연진', isPlural: true, isInput: true, type: 'default', addDataName: 'actors', inputValue: ''},
     genre: {name: '장르', isPlural: true, isInput: false, type: 'select', addDataName: 'genres', inputValue: '', selectMenus: ['공포', '판타지', '액션', '멜로', '스릴러']},
     tag: {name: '태그', isPlural: true, isInput: false, type: 'select', addDataName: 'tags', inputValue: '', selectMenus: []},
@@ -137,7 +161,7 @@ function ManageModal(props) {
     summary: '',
     rating: '',
     directors: [],
-    scenarios: [],
+    screenwriters: [],
     actors: [],
     genres: [],
     tags: [],
@@ -154,7 +178,7 @@ function ManageModal(props) {
       console.log(response.data); 
     })
   }, [props.id])
-
+  
   useEffect(() => {
     if(data){
       Object.entries(inputs).map(([key, value]) => {
@@ -167,7 +191,7 @@ function ManageModal(props) {
       })
     }
   }, [data])
-
+  
   return(
     <>
     <div className="manageModal">

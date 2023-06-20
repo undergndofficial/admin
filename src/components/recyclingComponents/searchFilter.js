@@ -8,9 +8,10 @@ function SearchFilter(props) {
 
   const search = () => {
     console.log(props.addedDatas);
-    console.log(props.inputs)
-    props.setQueryData(props.addedDatas);
-    props.setSearchOption(searchOptionCheckbox);
+    // console.log(props.addedDatas);
+    // console.log(props.inputs)
+    // props.setQueryData(props.addedDatas);
+    // props.setSearchOption(searchOptionCheckbox);
   }
 
   const {queryData, searchOption, api, setDataLength} = props;
@@ -24,7 +25,7 @@ function SearchFilter(props) {
 
   return(
     <div className="searchFilter">
-      <Inputs inputs={props.inputs} setInputs={props.setInputs} addedDatas={props.addedDatas} setAddedDatas={props.setAddedDatas} />
+      <Inputs inputs={props.inputs} addedDatas={props.addedDatas} setAddedDatas={props.setAddedDatas} />
       <div className="searchOptionCheckbox">
         <input type={"checkbox"} checked={searchOptionCheckbox==='and'} value='and' onChange={(e) => {setSearchOptionCheckbox(e.target.value)}}/><span onClick={() => setSearchOptionCheckbox('and')} >and</span>
         <input type={"checkbox"} checked={searchOptionCheckbox==='or'} value='or' onChange={(e) => {setSearchOptionCheckbox(e.target.value)}}/><span onClick={() => setSearchOptionCheckbox('or')} >or</span>

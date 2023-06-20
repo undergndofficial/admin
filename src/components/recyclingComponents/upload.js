@@ -16,7 +16,7 @@ function Upload(props) {
 
   return(
     <div className="upload">
-      <Inputs inputs={props.uploadInputs} setInputs={props.setUploadInputs} addedDatas={props.addedUploadDatas} setAddedDatas={props.setAddedUploadDatas} />
+      <Inputs inputs={props.uploadInputs} addedDatas={props.addedUploadDatas} setAddedDatas={props.setAddedUploadDatas} />
       <button className="uploadBtn" onClick={upload}>등록</button>
     </div>
   )

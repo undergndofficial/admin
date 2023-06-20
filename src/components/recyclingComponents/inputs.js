@@ -1,38 +1,55 @@
+import { useEffect, useState } from "react";
 
 
 function Inputs(props) {
+
+  const [inputValues, setInputValues] = useState();
+  const [isDone, setIsDone] = useState(false);
+
+  useEffect(() => {
+    const createInputValues = Object.keys(props.inputs).reduce((acc, key) => {
+      acc[key] = '';
+      return acc;
+    }, {});
+    setInputValues(createInputValues);  
+    setIsDone(true);
+  }, [])
   
   const addData = (dataName, data, inputKeyName) => {
-    if (data.split(' ').join('')) props.setAddedDatas({...props.addedDatas, [dataName]:[...props.addedDatas[dataName], data]});
-    props.setInputs({...props.inputs, [inputKeyName]:{...props.inputs[inputKeyName], inputValue:''}})
+    if (typeof(data)==='number' || data.split(' ').join('')) props.setAddedDatas({...props.addedDatas, [dataName]:[...props.addedDatas[dataName], data]});
+    // props.setInputs({...props.inputs, [inputKeyName]:{...props.inputs[inputKeyName], inputValue:''}})
+    setInputValues({...inputValues, [inputKeyName]: ''})
   }
-
+  
   const enterKey = (e, dataName, data, inputKeyName) => {
     if(e.key === 'Enter' && props.inputs[inputKeyName].isPlural){
       addData(dataName, data, inputKeyName);
     };
   }
 
-  const inputChange = (e, keyName) => {
-    props.setInputs({...props.inputs, [keyName]:{...props.inputs[keyName], inputValue: e.target.value}})
-    if (! props.inputs[keyName].isPlural) props.setAddedDatas({...props.addedDatas, [props.inputs[keyName].addDataName]: e.target.value})
+  const inputChange = (data, keyName) => {
+    setInputValues({...inputValues, [keyName]: data})
+    // props.setInputs({...props.inputs, [keyName]:{...props.inputs[keyName], inputValue: e.target.value}})
+    if (! props.inputs[keyName].isPlural) props.setAddedDatas({...props.addedDatas, [props.inputs[keyName].addDataName]: data})
   }
-
+  
   const dateChange = (e, keyName, idxNum) => {
     var date = props.addedDatas[keyName];
     date.splice(idxNum, 1, new Date(e.target.value));
     props.setAddedDatas({...props.addedDatas, [keyName]: date});
   }
-
+  
   const inputFile = (e, keyName) => {
-    props.setInputs({...props.inputs, [keyName]:{...props.inputs[keyName], inputValue: e.target.files[0]}})
+    setInputValues({...inputValues, [keyName]: e.target.files[0]})
+    // props.setInputs({...props.inputs, [keyName]:{...props.inputs[keyName], inputValue: e.target.files[0]}})
     if (! props.inputs[keyName].isPlural) props.setAddedDatas({...props.addedDatas, [props.inputs[keyName].addDataName]: e.target.files[0]})
   }
 
 
   return(
     <div className="inputs">
-      {
+    {isDone ?
+      
         Object.entries(props.inputs).map(([keyName, value]) => {
           return(
             <div key={keyName} className="inputBox">
@@ -40,7 +57,7 @@ function Inputs(props) {
               {
                 value.type === 'default' || value.type === 'password'
                 ?
-                <input type={value.type} value={value.inputValue} onChange={(e) => {inputChange(e, keyName)}} onKeyUp={(e) => {enterKey(e, value.addDataName, value.inputValue, keyName)}} />
+                <input type={value.type} value={inputValues[keyName]} onChange={(e) => {inputChange(e.target.value, keyName)}} onKeyUp={(e) => {enterKey(e, value.addDataName, inputValues[keyName], keyName)}} />
                 :
                 null
               }
@@ -48,7 +65,7 @@ function Inputs(props) {
               {
                 value.type === 'file'
                 ?
-                <input type={value.type} onChange={(e) => {inputFile(e, keyName)}} onKeyUp={(e) => {enterKey(e, value.addDataName, value.inputValue, keyName)}} />
+                <input type={value.type} onChange={(e) => {inputFile(e, keyName)}} onKeyUp={(e) => {enterKey(e, value.addDataName, inputValues[keyName], keyName)}} />
                 :
                 null
               }
@@ -56,18 +73,25 @@ function Inputs(props) {
               {
                 value.type === 'select' 
                 ?
-                <select value={value.inputValue} onChange={(e) => {inputChange(e, keyName)}} onKeyUp={(e) => {enterKey(e, value.addDataName, value.inputValue, keyName)}} >
-                  <option value={null} style={{color: 'gray'}}>{value.name} 선택하세요</option>
-                  {value.selectMenus.map((selectMenu) => {return(<option key={selectMenu} value={selectMenu}>{selectMenu}</option>)})}
-                </select>
+                  value.isForeign 
+                  ?
+                    <select value={inputValues[keyName]} onChange={(e) => {inputChange(parseInt(e.target.value), keyName)}} onKeyUp={(e) => {enterKey(e, value.addDataName, inputValues[keyName], keyName)}} >
+                      <option value={null} style={{color: 'gray'}}>{value.name} 선택하세요</option>
+                      {value.selectMenus.map((selectMenu) => {return(<option key={selectMenu.id} value={selectMenu.id}>{selectMenu[value.valueKey]}</option>)})}
+                    </select>
+                  :
+                    <select value={inputValues[keyName]} onChange={(e) => {inputChange(e.target.value, keyName)}} onKeyUp={(e) => {enterKey(e, value.addDataName, inputValues[keyName], keyName)}} >
+                      <option value={null} style={{color: 'gray'}}>{value.name} 선택하세요</option>
+                      {value.selectMenus.map((selectMenu) => {return(<option key={selectMenu} value={selectMenu}>{selectMenu}</option>)})}
+                    </select>
                 :
-                null 
+                  null 
               }
 
               {
                 value.type === 'textarea'
                 ?
-                <textarea value={value.inputValue} onChange={(e) => {inputChange(e, keyName)}} onKeyUp={(e) => {enterKey(e, value.addDataName, value.inputValue, keyName)}}/>
+                <textarea value={inputValues[keyName]} onChange={(e) => {inputChange(e.target.value, keyName)}} onKeyUp={(e) => {enterKey(e, value.addDataName, inputValues[keyName], keyName)}}/>
                 :
                 null
               }
@@ -78,9 +102,10 @@ function Inputs(props) {
                 value.checkList.map((checkbox, idx) => {
                   return(
                     <div key={idx} className="checkbox">
-                      <input id={"checkbox"+keyName+idx} type={"checkbox"} value={checkbox} checked={checkbox === value.inputValue} onClick={(e) => {
-                        let checkValue = e.target.checked? e.target.value: '' ; 
-                        props.setInputs({...props.inputs, [keyName]:{...value, inputValue: checkValue}}); 
+                      <input id={"checkbox"+keyName+idx} type={"checkbox"} value={checkbox} checked={checkbox === inputValues[keyName]} onClick={(e) => {
+                        let checkValue = e.target.checked? e.target.value: '' ;
+                        setInputValues({...inputValues, [keyName]: checkValue}); 
+                        // props.setInputs({...props.inputs, [keyName]:{...value, inputValue: checkValue}}); 
                         props.setAddedDatas({...props.addedDatas, [value.addDataName]: checkValue});
                       }} />
                       <span onClick={() => {document.getElementById("checkbox"+keyName+idx).click()}}>{checkbox}</span>
@@ -106,7 +131,7 @@ function Inputs(props) {
               {
                 value.isPlural
                 ?  
-                <button className="addBtns" onClick={() => {addData(value.addDataName, value.inputValue, keyName)}}>추가</button>
+                <button className="addBtns" onClick={() => {addData(value.addDataName, inputValues[keyName], keyName)}}>추가</button>
                 :
                 null
               }
@@ -120,7 +145,13 @@ function Inputs(props) {
                   props.addedDatas[value.addDataName].map((addedData,idx) => {
                     return (
                       <span key={idx} className="addedDataBox">
-                        <span className="addedData">{addedData}</span>
+                        <span className="addedData">{
+                          value.isForeign
+                          ?
+                          value.selectMenus.find((data) => data.id == addedData)[value.valueKey]
+                          :
+                          addedData
+                        }</span>
                         <button className="delBtn" onClick={() => {props.setAddedDatas({...props.addedDatas, [value.addDataName]:props.addedDatas[value.addDataName].filter((del) => del !== addedData)})}}>x</button>
                       </span>
                     )
@@ -134,7 +165,10 @@ function Inputs(props) {
           </div>
           )
         })
-      }
+      
+      :
+      <div>Loading...</div>
+    }
       {/* <div className="inputBox">
         <span className="inputName">등록일</span>
         <input type={"date"}/> ~ <input type={"date"} />

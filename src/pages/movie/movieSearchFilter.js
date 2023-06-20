@@ -11,7 +11,7 @@ function MovieSearchFilter(props) {
   const [inputs, setInputs] = useState({
     title: {name: '제목', isPlural: true, isInput: true, type: 'default', addDataName: 'title', inputValue: ''},
     director: {name: '감독', isPlural: true, isInput: true, type: 'default', addDataName: 'directors', inputValue: ''},
-    scenario: {name: '각본', isPlural: true, isInput: true, type: 'default', addDataName: 'scenarios', inputValue: ''},
+    screenwriter: {name: '각본', isPlural: true, isInput: true, type: 'default', addDataName: 'screenwriters', inputValue: ''},
     actor: {name: '출연진', isPlural: true, isInput: true, type: 'default', addDataName: 'actors', inputValue: ''},
     registrant: {name: '등록인', isPlural: true, isInput: true, type: 'default', addDataName: 'registrants', inputValue: ''},
     genre: {name: '장르', isPlural: true, isInput: false, type: 'select', addDataName: 'genres', inputValue: '', selectMenus: ['공포', '판타지', '액션', '멜로', '스릴러']},
@@ -22,7 +22,7 @@ function MovieSearchFilter(props) {
   const [addedDatas, setAddedDatas] = useState({
     title:[],
     directors:[],
-    scenarios:[],
+    screenwriters:[],
     actors:[],
     registrants:[],
     genres:[],

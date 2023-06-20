@@ -7,29 +7,29 @@ function NoticeManage() {
 
   const listName = '공지';
 
-  const elements = {noticeName: '공지 제목', noticeContent: '내용', date: '등록일'};
+  const elements = {noticeTitle: '공지 제목', noticeContent: '내용', createdDate: '등록일'};
 
-  const defaultShow = ['noticeName', 'noticeContent', 'date'];
+  const defaultShow = ['noticeTitle', 'noticeContent', 'createdDate'];
   const api = 'notice';
 
-  const [searchInputs, setSearchInputs] = useState({
-    noticeName: {name: '공지 제목', isPlural: true, isInput: true, type: 'default', addDataName: 'noticeName', inputValue: ''},
-    noticeContent: {name: '공지 내용', isPlural: true, isInput: true, type: 'default', addDataName: 'noticeContent', inputValue: ''},
-    date: {name: '등록일', isPlural: false, isInput: false, type:'date', addDataName: 'date', inputValue: ''}
-  });
+  const searchInputs = {
+    noticeTitle: {name: '공지 제목', isPlural: true, isInput: true, type: 'default', addDataName: 'noticeTitle'},
+    noticeContent: {name: '공지 내용', isPlural: true, isInput: true, type: 'default', addDataName: 'noticeContent'},
+    createdDate: {name: '등록일', isPlural: false, isInput: false, type:'date', addDataName: 'createdDate'}
+  };
   const [addedSearchDatas, setAddedSearchDatas] = useState({
-    noticeName:[],
+    noticeTitle:[],
     noticeContent: [],
-    date: ['', '']
+    createdDate: ['', '']
   });
 
-  const [uploadInputs, setUploadInputs] = useState({
-    noticeName: {name: '공지 제목', isPlural: false, isInput: true, type: 'default', addDataName: 'noticeName', inputValue: ''},
-    noticeContent: {name: '공지 내용', isPlural: false, isInput: false, type: 'textarea', addDataName: 'noticeContent', inputValue: ''}
-  });
+  const uploadInputs = {
+    noticeTitle: {name: '공지 제목', isPlural: false, isInput: true, type: 'default', addDataName: 'noticeTitle'},
+    noticeContent: {name: '공지 내용', isPlural: false, isInput: false, type: 'textarea', addDataName: 'noticeContent'}
+  };
   const [addedUploadDatas, setAddedUploadDatas] = useState({
-    noticeName: '',
-    noticetitle: ''
+    noticeTitle: '',
+    noticeContent: ''
   });
 
   const listBtns = [
@@ -43,8 +43,8 @@ function NoticeManage() {
     <div className="manage">
       <h2>공지 관리 페이지</h2>
       <Routes>
-        <Route path="/" element={<ManageMain searchInputs={searchInputs} setSearchInputs={setSearchInputs} addedSearchDatas={addedSearchDatas} setAddedSearchDatas={setAddedSearchDatas} api={api} elements={elements} defaultShow={defaultShow} listName={listName} uploadBtn={true} listBtns={listBtns} />} />
-        <Route path="/upload" element={<Upload uploadInputs={uploadInputs} setUploadInputs={setUploadInputs} addedUploadDatas={addedUploadDatas} setAddedUploadDatas={setAddedUploadDatas} api={api} />} />
+        <Route path="/" element={<ManageMain searchInputs={searchInputs} addedSearchDatas={addedSearchDatas} setAddedSearchDatas={setAddedSearchDatas} api={api} elements={elements} defaultShow={defaultShow} listName={listName} uploadBtn={true} listBtns={listBtns} />} />
+        <Route path="/upload" element={<Upload uploadInputs={uploadInputs} addedUploadDatas={addedUploadDatas} setAddedUploadDatas={setAddedUploadDatas} api={api} />} />
       </Routes>
     </div>
   )
