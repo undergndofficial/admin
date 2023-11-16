@@ -43,6 +43,32 @@ header {
   }
 }
 main {
+  .festivalMain {
+    h1 {
+        text-align: center;
+        margin-top: 100px;
+    }
+    .btns {
+      margin-top: 50px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      button {
+        width: 200px;
+        height: 200px;
+        background-color: #fff;
+        border-radius: 16px;
+        font-weight: 900;
+        font-size: larger;
+      }
+    }
+  }
+  .festivalUpload{
+    h2 {
+      text-align: center;
+      margin-top: 100px;
+    }
+  }
   .home {
     margin: 100px 5%;
     .topMenus {
@@ -156,8 +182,9 @@ main {
     }
     .manageModal {
       width: 800px;
-      height: 800px;
+      // height: 800px;
       border-radius: 16px;
+      border: solid 2px black;
       text-align: center;
       position: fixed;
       top: 50%;
@@ -167,6 +194,32 @@ main {
       overflow-y: auto;
       
       z-index: 9999;
+      
+      .modalInfo {
+        .infoName {
+          position: absolute;
+          left: 40px;
+        }
+        
+        .infoBox {
+          margin: 30px 0;
+          width: 275px;
+          height: auto;
+          margin-left: 296px;
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          
+          
+          .info {
+            width: 206px;
+            height: auto;
+            padding: 0;
+            text-align: start;
+          }
+        }
+      }
+
 
       .closeBtn {
         position: absolute;
@@ -254,6 +307,23 @@ main {
         span {
           font-size: 15px;
           cursor: pointer;
+        }
+      }
+
+      .isTrue{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        .isTrueCheckbox {
+          margin-right: 4px;
+          input {
+            width: auto;
+            height: auto;
+          }
+          span {
+            font-size: 15px;
+            cursor: pointer;
+          }
         }
       }
 
@@ -512,6 +582,64 @@ main {
         border: none;
         color: #000;
       }
+    }
+  }
+
+  .reviewManage {
+
+    width: 30%;
+    // margin: auto;
+    // text-align: center;
+
+    .reviews {
+      display: flex;
+      flex-direction: column;
+    
+      .reviewContainer {
+        border-bottom: solid 1px black;
+        padding-bottom: 10px;
+        margin: 10px 0;
+        
+        .reviewInfo {
+          display: flex;
+          flex-direction: row;
+
+          .mem {
+            margin-right: 5px;
+          }
+
+          .date {
+            margin-left: 5px;
+          }
+          // justify-content: space-evenly;
+        }
+      }
+
+    
+    }
+  }
+
+  .movieDetail {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    // margin: auto;
+
+    .movieDetailLine {
+      height: 85vh;
+      width: 0px;
+      border: solid 1px black;
+    }
+
+    .inputs {
+      width: 30%;
+      
+      .addBtns {
+        padding: 0;
+        width: 40px;
+      }
+      // margin-right: ;/
     }
   }
 

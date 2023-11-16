@@ -31,7 +31,6 @@ function UserManage () {
 
   return (
     <div className="manage">
-      <h2>회원 관리 페이지</h2>
       {/* <SearchFilter inputs={searchInputs} setInputs={setSearchInputs} addedDatas={addedSearchDatas} setAddedDatas={setAddedSearchDatas} queryData={queryData} setQueryData={setQueryData} setDataLength={setDataLength} getLengthApi={'user/getLength'} />
       <List dataLength={dataLength} queryData={queryData} elements={elements} defaultShow={['userName', 'email', 'joinDate']} listName='회원' getListApi={'user/getUserList'} /> */}
       <ManageMain searchInputs={searchInputs} addedSearchDatas={addedSearchDatas} setAddedSearchDatas={setAddedSearchDatas} api={api} elements={elements} defaultShow={defaultShow} listName={listName} />

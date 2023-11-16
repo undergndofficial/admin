@@ -9,7 +9,7 @@ function TagManage () {
 
   // const [dataLength, setDataLength] = useState();
   // const [queryData, setQueryData] = useState();
-  const elements = {tagName: '태그 이름', movies: ['영화', 'title'], createdDate: '등록일'};
+  const elements = {tagName: '태그 이름', movies: '영화', createdDate: '등록일'};
 
   const searchInputs = {
     tagName: {name: '태그 이름', isPlural: true, isInput: true, type: 'default', addDataName: 'tagName'},

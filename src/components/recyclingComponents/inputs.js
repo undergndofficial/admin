@@ -16,6 +16,7 @@ function Inputs(props) {
   }, [])
   
   const addData = (dataName, data, inputKeyName) => {
+    // console.log(dataName)
     if (typeof(data)==='number' || data.split(' ').join('')) props.setAddedDatas({...props.addedDatas, [dataName]:[...props.addedDatas[dataName], data]});
     // props.setInputs({...props.inputs, [inputKeyName]:{...props.inputs[inputKeyName], inputValue:''}})
     setInputValues({...inputValues, [inputKeyName]: ''})
@@ -31,6 +32,11 @@ function Inputs(props) {
     setInputValues({...inputValues, [keyName]: data})
     // props.setInputs({...props.inputs, [keyName]:{...props.inputs[keyName], inputValue: e.target.value}})
     if (! props.inputs[keyName].isPlural) props.setAddedDatas({...props.addedDatas, [props.inputs[keyName].addDataName]: data})
+  }
+
+  const isTureChange = (isTrue, keyName) => {
+    if(isTrue === props.addedDatas[props.inputs[keyName].addDataName]) inputChange(null, keyName);
+    else inputChange(isTrue, keyName);
   }
   
   const dateChange = (e, keyName, idxNum) => {
@@ -75,9 +81,9 @@ function Inputs(props) {
                 ?
                   value.isForeign 
                   ?
-                    <select value={inputValues[keyName]} onChange={(e) => {inputChange(parseInt(e.target.value), keyName)}} onKeyUp={(e) => {enterKey(e, value.addDataName, inputValues[keyName], keyName)}} >
+                    <select value={inputValues[keyName]} onChange={(e) => {inputChange(e.target.value, keyName)}} onKeyUp={(e) => {enterKey(e, value.addDataName, inputValues[keyName], keyName)}} >
                       <option value={null} style={{color: 'gray'}}>{value.name} 선택하세요</option>
-                      {value.selectMenus.map((selectMenu) => {return(<option key={selectMenu.id} value={selectMenu.id}>{selectMenu[value.valueKey]}</option>)})}
+                      {value.selectMenus.map((selectMenu) => {return(<option key={selectMenu[value.seq]} value={selectMenu[value.seq]}>{selectMenu[value.valueKey]}</option>)})}
                     </select>
                   :
                     <select value={inputValues[keyName]} onChange={(e) => {inputChange(e.target.value, keyName)}} onKeyUp={(e) => {enterKey(e, value.addDataName, inputValues[keyName], keyName)}} >
@@ -117,6 +123,21 @@ function Inputs(props) {
               }
 
               {
+                value.type === 'isTrue'
+                ?
+                <div className="isTrue">
+                  <div className="isTrueCheckbox">
+                    <input type={"checkbox"} checked={props.addedDatas[value.addDataName]===true} value={true} onChange={(e) => {isTureChange(true, keyName)}}/><span onClick={() => isTureChange(true, keyName)} >{value.menus[0]}</span>
+                  </div>
+                  <div className="isTrueCheckbox">
+                    <input type={"checkbox"} checked={props.addedDatas[value.addDataName]===false} value={false} onChange={(e) => {isTureChange(false, keyName)}}/><span onClick={() => isTureChange(false, keyName)} >{value.menus[1]}</span>
+                  </div>
+                </div>
+                :
+                null
+              }
+
+              {
                 value.type === 'date'
                 ?
                 <div className="dateInput">
@@ -148,7 +169,7 @@ function Inputs(props) {
                         <span className="addedData">{
                           value.isForeign
                           ?
-                          value.selectMenus.find((data) => data.id == addedData)[value.valueKey]
+                          value.selectMenus.find((data) => data[value.seq] == addedData)[value.valueKey]
                           :
                           addedData
                         }</span>

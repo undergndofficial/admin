@@ -22,11 +22,12 @@ function DeletedMovieManage () {
     director: {name: '감독', isPlural: true, isInput: true, type: 'default', addDataName: 'directors', inputValue: ''},
     screenwriter: {name: '각본', isPlural: true, isInput: true, type: 'default', addDataName: 'screenwriters', inputValue: ''},
     actor: {name: '출연진', isPlural: true, isInput: true, type: 'default', addDataName: 'actors', inputValue: ''},
-    registrant: {name: '등록인', isPlural: true, isInput: true, type: 'default', addDataName: 'registrants', inputValue: ''},
     genre: {name: '장르', isPlural: true, isInput: false, type: 'select', addDataName: 'genres', inputValue: '', selectMenus: ['공포', '판타지', '액션', '멜로', '스릴러']},
+    date: {name: '등록일', isPlural: false, isInput: false, type:'date', addDataName: 'date', inputValue: ''},
+    deletedDate: {name: '삭제일', isPlural: false, isInput: false, type:'date', addDataName: 'deletedDate', inputValue: ''},
+    registrant: {name: '등록인', isPlural: true, isInput: true, type: 'default', addDataName: 'registrants', inputValue: ''},
     tag: {name: '태그', isPlural: true, isInput: false, type: 'select', addDataName: 'tags', inputValue: '', selectMenus: []},
-    date: {name: '신청일', isPlural: false, isInput: false, type:'date', addDataName: 'date', inputValue: ''},
-    deletedDate: {name: '삭제일', isPlural: false, isInput: false, type:'date', addDataName: 'deletedDate', inputValue: ''}
+    isOpen: {name: '공개여부', isPlural: false, type:'isTrue', addDataName: 'isOpen', menus:['공개', '미공개']}
   })
 
   const [addedSearchDatas, setAddedSearchDatas] = useState({
@@ -61,7 +62,6 @@ function DeletedMovieManage () {
 
   return (
     <div className="manage">
-      <h2>삭제 영화 관리 페이지</h2>
       <ManageMain searchInputs={searchInputs} setSearchInputs={setSearchInputs} addedSearchDatas={addedSearchDatas} setAddedSearchDatas={setAddedSearchDatas} api={api} elements={elements} defaultShow={defaultShow} listName={listName} listBtns={listBtns} />
     </div>
   )

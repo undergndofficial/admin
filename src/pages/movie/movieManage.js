@@ -4,31 +4,39 @@ import { Route, Routes } from "react-router-dom";
 import ManageMain from "../../components/recyclingComponents/manageMain";
 import Upload from "../../components/recyclingComponents/upload";
 import Inputs from "../../components/recyclingComponents/inputs";
+import MovieDetail from "./movieDetail";
 
 function MovieManage () {
 
   // const [dataLength, setDataLength] = useState();
   // const [queryData, setQueryData] = useState();
+  const [subtitles, setSubtitles] = useState([]);
+  const [categorys, setCategorys] = useState([]);
   const [tags, setTags] = useState([]);
   const [genres, setGenres] = useState([]);
+  const [ratings, setRatings] = useState([]);
   const [filmPeoples, setFilmPeoples] = useState([]);
 
   const listName = '영화'
 
-  const elements = {title: '제목', directors: '감독', screenwriters: '각본', actors: '출연진', summary: '줄거리', rating: '관람등급', genres: '장르', tags: ['태그', 'tagName'], date: '등록일'}
+  const elements = {title: '제목', directors: '감독', screenwriters: '각본', actors: '출연진', summary: '줄거리', rating: '관람등급', genres: '장르', tags: '태그', date: '등록일'}
 
   const defaultShow = ['title', 'directors', 'screenwriters', 'tags'];
   const api = 'movie';
   
   const searchInputs = {
-    title: {name: '제목', isPlural: true, isInput: true, type: 'default', addDataName: 'title'},
-    director: {name: '감독', isPlural: true, isInput: true, type: 'default', addDataName: 'directors'},
-    screenwriter: {name: '각본', isPlural: true, isInput: true, type: 'default', addDataName: 'screenwriters'},
-    actor: {name: '출연진', isPlural: true, isInput: true, type: 'default', addDataName: 'actors'},
-    registrant: {name: '등록인', isPlural: true, isInput: true, type: 'default', addDataName: 'registrants'},
-    genre: {name: '장르', isPlural: true, isInput: false, type: 'select', addDataName: 'genres', selectMenus: genres, isForeign: true, valueKey: 'genreName'},
-    tag: {name: '태그', isPlural: true, isInput: false, type: 'select', addDataName: 'tags', selectMenus: tags, isForeign: true, valueKey: 'tagName'},
-    date: {name: '신청일', isPlural: false, isInput: false, type:'date', addDataName: 'date'}
+    title: {name: '제목', isPlural: true, type: 'default', addDataName: 'title'},
+    director: {name: '감독', isPlural: true, type: 'default', addDataName: 'directors'},
+    screenwriter: {name: '각본', isPlural: true, type: 'default', addDataName: 'screenwriters'},
+    actor: {name: '출연진', isPlural: true, type: 'default', addDataName: 'actors'},
+    subtitle: {name: '자막', isPlural: true, type: 'select', addDataName: 'subtitles', selectMenus: subtitles, isForeign: true, valueKey: 'subtitleName'},
+    category: {name: '카테고리', isPlural: true, type: 'select', addDataName: 'categorys', selectMenus: categorys, isForeign: true, valueKey: 'categoryName'},
+    genre: {name: '장르', isPlural: true, type: 'select', addDataName: 'genres', selectMenus: genres, isForeign: true, valueKey: 'genreName'},
+    tag: {name: '태그', isPlural: true, type: 'select', addDataName: 'tags', selectMenus: tags, isForeign: true, valueKey: 'tagName'},
+    rating: {name: '관람등급', isPlural: true, type: 'select', addDataName: 'ratings', selectMenus: ratings, isForeign: true, valueKey: 'ratingName'},
+    registrant: {name: '등록인', isPlural: true, type: 'default', addDataName: 'registrants'},
+    date: {name: '등록일', isPlural: false, type:'date', addDataName: 'date'},
+    isOpen: {name: '공개여부', isPlural: false, type:'isTrue', addDataName: 'isOpen', menus:['공개', '미공개']}
   };
 
   // const [searchInputValues, setSearchInputValues] = useState({
@@ -47,7 +55,11 @@ function MovieManage () {
     registrants:[],
     genres:[],
     tags:[],
-    date:['', '']
+    subtitles:[],
+    categorys:[],
+    ratings:[],
+    date:['', ''],
+    isOpen: ''
   })
   
   
@@ -57,13 +69,14 @@ function MovieManage () {
     subtitle: {name: '자막', isPlural: false, isInput: true, type: 'file', addDataName: 'subtitle'},
     title: {name: '제목', isPlural: false, isInput: true, type: 'default', addDataName: 'title'},
     summary: {name: '줄거리', isPlural: false, isInput: false, type: 'textarea', addDataName: 'summary'},
-    director: {name: '감독', isPlural: true, isInput: false, type: 'select', addDataName: 'directors', selectMenus: filmPeoples, isForeign: true, valueKey: 'filmPeopleName'},
-    screenwriter: {name: '각본', isPlural: true, isInput: false, type: 'select', addDataName: 'screenwriters', selectMenus: filmPeoples, isForeign: true, valueKey: 'filmPeopleName'},
-    actor: {name: '출연진', isPlural: true, isInput: false, type: 'select', addDataName: 'actors', selectMenus: filmPeoples, isForeign: true, valueKey: 'filmPeopleName'},
+    director: {name: '감독', isPlural: true, isInput: false, type: 'default', addDataName: 'directors'},
+    screenwriter: {name: '각본', isPlural: true, isInput: false, type: 'default', addDataName: 'screenwriters'},
+    actor: {name: '출연진', isPlural: true, isInput: false, type: 'default', addDataName: 'actors'},
     genre: {name: '장르', isPlural: true, isInput: false, type: 'select', addDataName: 'genres', selectMenus: genres, isForeign: true, valueKey: 'genreName'},
     tag: {name: '태그', isPlural: true, isInput: false, type: 'select', addDataName: 'tags', selectMenus: tags, isForeign: true, valueKey: 'tagName'},
-    rating: {name: '관람등급', isPlural: false, isInput: false, type: 'select', addDataName: 'rating', selectMenus: ['전체관람가', '12세이상 관람가', '15세이상 관람가', '청소년관람불가'], isForeign: false},
-    specialNote: {name: '특이사항', isPlural: false, isInput: false, type: 'textarea', addDataName: 'specialNote',}
+    rating: {name: '관람등급', isPlural: false, isInput: false, type: 'select', addDataName: 'ratings', selectMenus: ratings, isForeign: true, valueKey: 'ratingName'}, 
+    specialNote: {name: '특이사항', isPlural: false, isInput: false, type: 'textarea', addDataName: 'specialNote'},
+    isOpen: {name: '공개여부', isPlural: false, type:'isTrue', addDataName: 'isOpen', menus:['공개', '미공개']}
   };
   const [addedUploadDatas, setAddedUploadDatas] = useState({
     title: '',
@@ -77,7 +90,8 @@ function MovieManage () {
     video: '',
     poster: '',
     subtitle: '',
-    specialNote: ''
+    specialNote: '',
+    isOpen: ''
   })
   
   // const [searchOption, setSearchOption] = useState('and');
@@ -93,6 +107,14 @@ function MovieManage () {
   
   
   document.body.style.overflow = manageModal ? 'hidden': 'auto';
+
+  useEffect(() => {
+    //자막 목록 가져오기
+  })
+
+  useEffect(() => {
+    //카테고리 목록 가져오기
+  })
 
   useEffect(() => {
     axios.get('/api/tag/getTag')
@@ -128,9 +150,10 @@ function MovieManage () {
 
   return (
     <div className="manage">
-      <h2>영화 관리 페이지</h2>
+      {/* <h2>영화 관리 페이지</h2> */}
       <Routes>
         <Route path="/" element={<ManageMain searchInputs={searchInputs} addedSearchDatas={addedSearchDatas} setAddedSearchDatas={setAddedSearchDatas} api={api} elements={elements} defaultShow={defaultShow} listName={listName} listBtns={listBtns} uploadBtn={true} setManageModal={setManageModal}/>} />
+        <Route path="/detail/:id" element={<MovieDetail />} />
         <Route path="/upload" element={<Upload uploadInputs={uploadInputs} addedUploadDatas={addedUploadDatas} setAddedUploadDatas={setAddedUploadDatas} api={api} />} />
       </Routes>
       {manageModal ? <ManageModal id={manageModal} setManageModal={setManageModal} /> : null}

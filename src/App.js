@@ -16,6 +16,8 @@ import Signup from './pages/signup/signup';
 import PrivateRoute from './privateRoute';
 import DeletedMovieManage from './pages/movie/deletedMovieManage';
 import CopyMovieManage from './pages/test/copyMovieManage';
+import RequestedMovieManage from './pages/movie/requestedMovieManage';
+import Festival from './pages/festival/festival';
 
 function App() {
 
@@ -75,18 +77,24 @@ function App() {
       />
       <main>
         <Routes>
-          <Route path='/' element={<PrivateRoute isAuth={isAuth} Component={<Main />} />} />
-          <Route path='/movieManage/*' element={<PrivateRoute isAuth={isAuth} Component={<MovieManage />} />} />
-          <Route path='/deletedMovieManage' element={<PrivateRoute isAuth={isAuth} Component={<DeletedMovieManage />} /> } />
-          <Route path='/tagManage/*' element={<PrivateRoute isAuth={isAuth} Component={<TagManage />} />} />\
-          <Route path='/noticeManage/*' element={<PrivateRoute isAuth={isAuth} Component={<NoticeManage />} />} />
-          <Route path='/reportManage' element={<PrivateRoute isAuth={isAuth} Component={<ReportManage />} />} />
-          <Route path='/userManage' element={<PrivateRoute isAuth={isAuth} Component={<UserManage />} />} />
-          <Route path='/inquiryManage' element={<PrivateRoute isAuth={isAuth} Component={<InquiryManage />} />} />
-          <Route path='/login' element={<Login 
-          // setIsDone={setIsDone}
-          />} />
-          <Route path='/signup' element={<Signup />} />
+          
+          <Route element={<PrivateRoute userAuthentication={false} />}>
+            <Route path='/login' element={<Login />} />          
+          </Route>
+          
+          <Route element={<PrivateRoute userAuthentication={true} />}>
+            <Route path='/' element={<Main />} />
+            <Route path='/festival/*' element={<Festival />} />
+            <Route path='/movieManage/*' element={<MovieManage />} />
+            <Route path='/deletedMovieManage' element={<DeletedMovieManage />} />
+            <Route path='/requestedMovieManage' element={<RequestedMovieManage />} />
+            <Route path='/tagManage/*' element={<TagManage />} />\
+            <Route path='/noticeManage/*' element={<NoticeManage />} />
+            <Route path='/reportManage' element={<ReportManage />} />
+            <Route path='/userManage' element={<UserManage />} />
+            <Route path='/inquiryManage' element={<InquiryManage />} />
+          </Route>
+          {/* <Route path='/signup' element={<Signup />} /> */}
           <Route path='/test' element={<PrivateRoute isAuth={isAuth} Component={<CopyMovieManage />} />} />
         </Routes>
       </main>

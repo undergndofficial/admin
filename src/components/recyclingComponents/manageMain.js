@@ -11,6 +11,7 @@ function ManageMain(props) {
 
   return(
     <>
+      <h2>{props.listName} 관리 페이지</h2>
       <SearchFilter inputs={props.searchInputs} 
         addedDatas={props.addedSearchDatas} setAddedDatas={props.setAddedSearchDatas}
         queryData={queryData} setQueryData={setQueryData}
