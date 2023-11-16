@@ -59,7 +59,7 @@ function FestivalMovieUpload() {
       await axios
         .post(apiUrl + '/festival/' + mov_seq + '/publish')
         .then((res) => {
-          console.log(res.data);
+          if( !alert('등록되었습니다') ) window.location.reload();
         });
     });
   };
@@ -267,9 +267,6 @@ function FestivalMovieUpload() {
       ) : (
         <div>Loading...</div>
       )}
-      <button className="uploadBtn" onClick={upload}>
-        등록
-      </button>
     </div>
   );
 }

@@ -73,8 +73,10 @@ function FestivalList(props) {
   const clickListBtn = async(btn) => {
     if (checkedData){
       await axios.post(`${apiUrl}/festival/${checkedData}/toggle-show`, btn.body)
-      .then((res) => {console.log(res.data)})
-      if( !alert(btn.name+'되었습니다') ) window.location.reload();
+      .then((res) => {
+        console.log(res.data)
+        if( !alert(btn.name+'되었습니다') ) window.location.reload();
+      })
     }
     else alert('한 개 이상 선택해주세요');
   }
